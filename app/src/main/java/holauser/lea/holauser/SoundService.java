@@ -22,21 +22,23 @@ public class SoundService extends Service {
     public int onStartCommand(Intent intenc, int flags, int idArranque) {
         final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
         rep = MediaPlayer.create(this, globalVariable.getSonido());
-        int tiempoEspera = 1000 * globalVariable.getTiempo();
+        int tiempoEspera = 1000 * globalVariable.getTiempo() * 60;
         timer.purge();
         TimerTask timerTask = new TimerTask() {
             public void run() {
                 rep.start();
+                globalVariable.setPlaying(true);
             }
         };
-        timer.scheduleAtFixedRate(timerTask, 1000, tiempoEspera);
+        timer.scheduleAtFixedRate(timerTask, 0, tiempoEspera);
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this,"Servicio detenido", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Stoped", Toast.LENGTH_SHORT).show();
         timer.cancel();
+        ((GlobalVars)getApplicationContext()).setPlaying(false);
     }
 
     @Override

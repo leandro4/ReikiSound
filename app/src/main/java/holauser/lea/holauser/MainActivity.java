@@ -3,57 +3,148 @@ package holauser.lea.holauser;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Chronometer;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-    float alpha = 0;
+
+    Button btnPlay;
+    RelativeLayout rlSelectContent;
+    TextView chronometer;
+
+    CheckBox cuenco;
+    CheckBox koshi;
+
+    TextView tv3;
+    TextView tv5;
+    TextView tv7;
+    TextView tv10;
+    TextView tv15;
+    TextView tv20;
+
+    CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.contentLayout);
+        btnPlay = (Button) findViewById(R.id.btn_play);
+        rlSelectContent = (RelativeLayout) findViewById(R.id.rl_content_select);
+        chronometer = (TextView) findViewById(R.id.chronometer);
 
+        cuenco = (CheckBox) findViewById(R.id.cb_cuenco);
+        koshi = (CheckBox) findViewById(R.id.cb_koshi);
+
+        tv3 = (TextView) findViewById(R.id.btnTime3);
+        tv5 = (TextView) findViewById(R.id.btnTime5);
+        tv7 = (TextView) findViewById(R.id.btnTime7);
+        tv10 = (TextView) findViewById(R.id.btnTime10);
+        tv15 = (TextView) findViewById(R.id.btnTime15);
+        tv20 = (TextView) findViewById(R.id.btnTime20);
+
+        tv3.setOnClickListener(btnTimeListener);
+        tv5.setOnClickListener(btnTimeListener);
+        tv7.setOnClickListener(btnTimeListener);
+        tv10.setOnClickListener(btnTimeListener);
+        tv15.setOnClickListener(btnTimeListener);
+        tv20.setOnClickListener(btnTimeListener);
+
+        btnPlay.setOnClickListener(btnPlayListener);
+
+        cuenco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
+
+                if (globalVariable.getSonido() == R.raw.cuenco) {
+                    cuenco.setChecked(true);
+                } else {
+                    globalVariable.setSonido(R.raw.cuenco);
+                    koshi.setChecked(false);
+                }
+            }
+        });
+
+        koshi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
+
+                if (globalVariable.getSonido() == R.raw.koshi) {
+                    koshi.setChecked(true);
+                } else {
+                    globalVariable.setSonido(R.raw.koshi);
+                    cuenco.setChecked(false);
+                }
+            }
+        });
+
+        countDownTimer = new CountDownTimer(((GlobalVars)getApplicationContext()).getTiempo() * 60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                chronometer.setText("Remaining:\n " + millisUntilFinished / 1000 + "s");
+            }
+
+            public void onFinish() {
+                countDownTimer.start();
+            }
+        };
     }
 
-    @Override
-    protected void onStart () {
-        super.onStart();
-    }
+    View.OnClickListener btnPlayListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            GlobalVars gb = (GlobalVars)getApplicationContext();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+            if (gb.isPlaying()) {
+                countDownTimer.cancel();
+                stopService(new Intent(MainActivity.this, SoundService.class));
+                rlSelectContent.setVisibility(View.VISIBLE);
+                chronometer.setVisibility(View.GONE);
+                btnPlay.setText("PLAY");
+            }
 
-    public void sonarCuenco (View v) {
-        Toast.makeText(this, "Sonando cuenco...", Toast.LENGTH_SHORT).show();
-        final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
-        globalVariable.setSonido(R.raw.cuenco);
-        globalVariable.setTiempo(Integer.parseInt(((EditText) findViewById(R.id.cuadro_segundos)).getText().toString()));
-        startService(new Intent(MainActivity.this, SoundService.class));
-    }
+            else {
+                countDownTimer.start();
+                rlSelectContent.setVisibility(View.GONE);
+                chronometer.setVisibility(View.VISIBLE);
+                btnPlay.setText("STOP");
+                Toast.makeText(getApplicationContext(), "Playing every " + gb.getTiempo() + " minutes", Toast.LENGTH_SHORT).show();
+                startService(new Intent(MainActivity.this, SoundService.class));
+            }
+        }
+    };
 
-    public void sonarKoshi (View v) {
-        Toast.makeText(this, "Sonando koshi...", Toast.LENGTH_SHORT).show();
-        final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
-        globalVariable.setSonido(R.raw.koshi);
-        globalVariable.setTiempo(Integer.parseInt(((EditText) findViewById(R.id.cuadro_segundos)).getText().toString()));
-        startService(new Intent(MainActivity.this, SoundService.class));
-    }
+    View.OnClickListener btnTimeListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
+            globalVariable.setTiempo(Integer.parseInt((String)view.getTag()));
+            resetTimeBtns();
+            view.setBackgroundResource(R.drawable.boton_selected);
+        }
+    };
 
-    public void detener (View v) {
-        stopService(new Intent(MainActivity.this, SoundService.class));
+    private void resetTimeBtns () {
+        tv3.setBackgroundResource(R.drawable.boton);
+        tv5.setBackgroundResource(R.drawable.boton);
+        tv7.setBackgroundResource(R.drawable.boton);
+        tv10.setBackgroundResource(R.drawable.boton);
+        tv15.setBackgroundResource(R.drawable.boton);
+        tv20.setBackgroundResource(R.drawable.boton);
     }
 
     @Override
@@ -62,13 +153,4 @@ public class MainActivity extends Activity {
         stopService(new Intent(MainActivity.this, SoundService.class));
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

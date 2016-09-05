@@ -2,8 +2,9 @@ package holauser.lea.holauser;
 import android.app.Application;
 
 public class GlobalVars extends Application {
-    private int audio;
-    private int tiempo;
+    private int audio = R.raw.cuenco;
+    private int tiempo = 3;
+    private boolean isPlaying = false;
 
     public void setSonido (int sonido) {
         audio = sonido;
@@ -19,5 +20,13 @@ public class GlobalVars extends Application {
 
     public int getTiempo () {
         return tiempo;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
     }
 }
