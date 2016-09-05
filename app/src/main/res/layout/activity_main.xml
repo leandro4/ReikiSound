@@ -149,7 +149,7 @@
         <TextView
             android:text="Remaining:\n 0s"
             android:id="@+id/chronometer"
-            android:visibility="visible"
+            android:visibility="gone"
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="50sp"
