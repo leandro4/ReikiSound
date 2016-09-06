@@ -18,7 +18,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_content_select"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/imageView"
         android:layout_above="@+id/btn_play"
         android:layout_width="match_parent"
@@ -42,6 +42,17 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:tag="1"
+                android:id="@+id/btnTime1"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="#41ccff"
+                android:padding="13dp"
+                android:background="@drawable/boton_selected"/>
+
+            <TextView
                 android:tag="3"
                 android:id="@+id/btnTime3"
                 android:layout_marginRight="5dp"
@@ -50,7 +61,7 @@
                 android:text="3"
                 android:textColor="#41ccff"
                 android:padding="13dp"
-                android:background="@drawable/boton_selected"/>
+                android:background="@drawable/boton"/>
 
             <TextView
                 android:tag="5"
@@ -75,23 +86,77 @@
                 android:background="@drawable/boton"/>
 
             <TextView
-                android:tag="10"
-                android:id="@+id/btnTime10"
-                android:layout_marginRight="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10"
-                android:textColor="#41ccff"
-                android:padding="13dp"
-                android:background="@drawable/boton"/>
-
-            <TextView
                 android:tag="15"
                 android:id="@+id/btnTime15"
                 android:layout_marginRight="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15"
+                android:textColor="#41ccff"
+                android:padding="13dp"
+                android:background="@drawable/boton"/>
+
+            <TextView
+                android:tag="25"
+                android:id="@+id/btnTime25"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25"
+                android:textColor="#41ccff"
+                android:padding="13dp"
+                android:background="@drawable/boton"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_time_btns2"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/ll_time_btns"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:tag="2"
+                android:id="@+id/btnTime2"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textColor="#41ccff"
+                android:padding="13dp"
+                android:background="@drawable/boton"/>
+
+            <TextView
+                android:tag="4"
+                android:id="@+id/btnTime4"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textColor="#41ccff"
+                android:padding="13dp"
+                android:background="@drawable/boton"/>
+
+            <TextView
+                android:tag="6"
+                android:id="@+id/btnTime6"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:textColor="#41ccff"
+                android:padding="13dp"
+                android:background="@drawable/boton"/>
+
+            <TextView
+                android:tag="10"
+                android:id="@+id/btnTime10"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
                 android:textColor="#41ccff"
                 android:padding="13dp"
                 android:background="@drawable/boton"/>
@@ -107,13 +172,24 @@
                 android:padding="13dp"
                 android:background="@drawable/boton"/>
 
+            <TextView
+                android:tag="30"
+                android:id="@+id/btnTime30"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30"
+                android:textColor="#41ccff"
+                android:padding="13dp"
+                android:background="@drawable/boton"/>
+
         </LinearLayout>
 
         <CheckBox
             android:id="@+id/cb_cuenco"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="30dp"
-            android:layout_below="@+id/ll_time_btns"
+            android:layout_below="@+id/ll_time_btns2"
             android:background="@drawable/cuenco"
             android:checked="true"
             android:layout_width="100dp"
@@ -123,7 +199,7 @@
             android:id="@+id/cb_koshi"
             android:layout_marginRight="40dp"
             android:layout_marginTop="30dp"
-            android:layout_below="@+id/ll_time_btns"
+            android:layout_below="@+id/ll_time_btns2"
             android:background="@drawable/koshi"
             android:checked="false"
             android:layout_alignParentRight="true"

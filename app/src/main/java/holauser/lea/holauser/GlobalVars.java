@@ -3,7 +3,7 @@ import android.app.Application;
 
 public class GlobalVars extends Application {
     private int audio = R.raw.cuenco;
-    private int tiempo = 3;
+    private int tiempo = 1;
     private boolean isPlaying = false;
 
     public void setSonido (int sonido) {

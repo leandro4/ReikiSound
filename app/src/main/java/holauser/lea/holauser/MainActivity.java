@@ -25,12 +25,18 @@ public class MainActivity extends Activity {
     CheckBox cuenco;
     CheckBox koshi;
 
+    TextView tv1;
+    TextView tv2;
     TextView tv3;
+    TextView tv4;
     TextView tv5;
+    TextView tv6;
     TextView tv7;
     TextView tv10;
     TextView tv15;
     TextView tv20;
+    TextView tv25;
+    TextView tv30;
 
     CountDownTimer countDownTimer;
 
@@ -53,12 +59,25 @@ public class MainActivity extends Activity {
         tv15 = (TextView) findViewById(R.id.btnTime15);
         tv20 = (TextView) findViewById(R.id.btnTime20);
 
+        tv1 = (TextView) findViewById(R.id.btnTime1);
+        tv2 = (TextView) findViewById(R.id.btnTime2);
+        tv4 = (TextView) findViewById(R.id.btnTime4);
+        tv6 = (TextView) findViewById(R.id.btnTime6);
+        tv25 = (TextView) findViewById(R.id.btnTime25);
+        tv30 = (TextView) findViewById(R.id.btnTime30);
+
         tv3.setOnClickListener(btnTimeListener);
         tv5.setOnClickListener(btnTimeListener);
         tv7.setOnClickListener(btnTimeListener);
         tv10.setOnClickListener(btnTimeListener);
         tv15.setOnClickListener(btnTimeListener);
         tv20.setOnClickListener(btnTimeListener);
+        tv1.setOnClickListener(btnTimeListener);
+        tv2.setOnClickListener(btnTimeListener);
+        tv4.setOnClickListener(btnTimeListener);
+        tv6.setOnClickListener(btnTimeListener);
+        tv25.setOnClickListener(btnTimeListener);
+        tv30.setOnClickListener(btnTimeListener);
 
         btnPlay.setOnClickListener(btnPlayListener);
 
@@ -91,17 +110,6 @@ public class MainActivity extends Activity {
                 }
             }
         });
-
-        countDownTimer = new CountDownTimer(((GlobalVars)getApplicationContext()).getTiempo() * 60000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                chronometer.setText("Remaining:\n " + millisUntilFinished / 1000 + "s");
-            }
-
-            public void onFinish() {
-                countDownTimer.start();
-            }
-        };
     }
 
     View.OnClickListener btnPlayListener = new View.OnClickListener() {
@@ -118,6 +126,17 @@ public class MainActivity extends Activity {
             }
 
             else {
+                countDownTimer = new CountDownTimer(((GlobalVars)getApplicationContext()).getTiempo() * 60000, 1000) {
+
+                    public void onTick(long millisUntilFinished) {
+                        chronometer.setText("Remaining:\n " + millisUntilFinished / 1000 + "s");
+                    }
+
+                    public void onFinish() {
+                        countDownTimer.start();
+                    }
+                };
+
                 countDownTimer.start();
                 rlSelectContent.setVisibility(View.GONE);
                 chronometer.setVisibility(View.VISIBLE);
@@ -145,6 +164,12 @@ public class MainActivity extends Activity {
         tv10.setBackgroundResource(R.drawable.boton);
         tv15.setBackgroundResource(R.drawable.boton);
         tv20.setBackgroundResource(R.drawable.boton);
+        tv1.setBackgroundResource(R.drawable.boton);
+        tv2.setBackgroundResource(R.drawable.boton);
+        tv4.setBackgroundResource(R.drawable.boton);
+        tv6.setBackgroundResource(R.drawable.boton);
+        tv25.setBackgroundResource(R.drawable.boton);
+        tv30.setBackgroundResource(R.drawable.boton);
     }
 
     @Override
