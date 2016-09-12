@@ -11,6 +11,7 @@ import java.util.TimerTask;
 
 public class SoundService extends Service {
     MediaPlayer rep;
+    MediaPlayer repMusic;
     Timer timer = new Timer();
 
     @Override
@@ -22,8 +23,15 @@ public class SoundService extends Service {
     public int onStartCommand(Intent intenc, int flags, int idArranque) {
         final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
         rep = MediaPlayer.create(this, globalVariable.getSonido());
+        repMusic = MediaPlayer.create(this, R.raw.relaxing1);
         int tiempoEspera = 1000 * globalVariable.getTiempo() * 60;
         timer.purge();
+
+        if (globalVariable.isPlayMusic()) {
+            repMusic.setLooping(true);
+            repMusic.start();
+        }
+
         TimerTask timerTask = new TimerTask() {
             public void run() {
                 rep.start();
@@ -36,9 +44,17 @@ public class SoundService extends Service {
 
     @Override
     public void onDestroy() {
+
         Toast.makeText(this,"Stoped", Toast.LENGTH_SHORT).show();
         timer.cancel();
         ((GlobalVars)getApplicationContext()).setPlaying(false);
+        try {
+            repMusic.stop();
+            repMusic.release();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

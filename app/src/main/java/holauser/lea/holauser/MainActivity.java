@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
 
     CheckBox cuenco;
     CheckBox koshi;
+    CheckBox music;
 
     TextView tv1;
     TextView tv2;
@@ -51,6 +52,7 @@ public class MainActivity extends Activity {
 
         cuenco = (CheckBox) findViewById(R.id.cb_cuenco);
         koshi = (CheckBox) findViewById(R.id.cb_koshi);
+        music = (CheckBox) findViewById(R.id.cb_enable_music);
 
         tv3 = (TextView) findViewById(R.id.btnTime3);
         tv5 = (TextView) findViewById(R.id.btnTime5);
@@ -141,6 +143,10 @@ public class MainActivity extends Activity {
                 rlSelectContent.setVisibility(View.GONE);
                 chronometer.setVisibility(View.VISIBLE);
                 btnPlay.setText("STOP");
+                if (music.isChecked())
+                    gb.setPlayMusic(true);
+                else
+                    gb.setPlayMusic(false);
                 Toast.makeText(getApplicationContext(), "Playing every " + gb.getTiempo() + " minutes", Toast.LENGTH_SHORT).show();
                 startService(new Intent(MainActivity.this, SoundService.class));
             }
