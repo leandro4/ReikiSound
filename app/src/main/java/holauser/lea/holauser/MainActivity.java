@@ -4,40 +4,34 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Chronometer;
-import android.widget.CompoundButton;
-import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends Activity {
 
+    @BindView(R.id.btn_play)
     Button btnPlay;
+    @BindView(R.id.rl_content_select)
     RelativeLayout rlSelectContent;
+    @BindView(R.id.chronometer)
     TextView chronometer;
 
-    CheckBox cuenco;
-    CheckBox koshi;
-    CheckBox music;
+    @BindView(R.id.numberPicker)
+    NumberPicker numberPicker;
 
-    TextView tv1;
-    TextView tv2;
-    TextView tv3;
-    TextView tv4;
-    TextView tv5;
-    TextView tv6;
-    TextView tv7;
-    TextView tv10;
-    TextView tv15;
-    TextView tv20;
-    TextView tv25;
-    TextView tv30;
+    @BindView(R.id.cb_cuenco)
+    CheckBox cuenco;
+    @BindView(R.id.cb_koshi)
+    CheckBox koshi;
+    @BindView(R.id.cb_enable_music)
+    CheckBox music;
 
     CountDownTimer countDownTimer;
 
@@ -46,40 +40,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnPlay = (Button) findViewById(R.id.btn_play);
-        rlSelectContent = (RelativeLayout) findViewById(R.id.rl_content_select);
-        chronometer = (TextView) findViewById(R.id.chronometer);
+        ButterKnife.bind(this);
 
-        cuenco = (CheckBox) findViewById(R.id.cb_cuenco);
-        koshi = (CheckBox) findViewById(R.id.cb_koshi);
-        music = (CheckBox) findViewById(R.id.cb_enable_music);
-
-        tv3 = (TextView) findViewById(R.id.btnTime3);
-        tv5 = (TextView) findViewById(R.id.btnTime5);
-        tv7 = (TextView) findViewById(R.id.btnTime7);
-        tv10 = (TextView) findViewById(R.id.btnTime10);
-        tv15 = (TextView) findViewById(R.id.btnTime15);
-        tv20 = (TextView) findViewById(R.id.btnTime20);
-
-        tv1 = (TextView) findViewById(R.id.btnTime1);
-        tv2 = (TextView) findViewById(R.id.btnTime2);
-        tv4 = (TextView) findViewById(R.id.btnTime4);
-        tv6 = (TextView) findViewById(R.id.btnTime6);
-        tv25 = (TextView) findViewById(R.id.btnTime25);
-        tv30 = (TextView) findViewById(R.id.btnTime30);
-
-        tv3.setOnClickListener(btnTimeListener);
-        tv5.setOnClickListener(btnTimeListener);
-        tv7.setOnClickListener(btnTimeListener);
-        tv10.setOnClickListener(btnTimeListener);
-        tv15.setOnClickListener(btnTimeListener);
-        tv20.setOnClickListener(btnTimeListener);
-        tv1.setOnClickListener(btnTimeListener);
-        tv2.setOnClickListener(btnTimeListener);
-        tv4.setOnClickListener(btnTimeListener);
-        tv6.setOnClickListener(btnTimeListener);
-        tv25.setOnClickListener(btnTimeListener);
-        tv30.setOnClickListener(btnTimeListener);
+        numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(30);
 
         btnPlay.setOnClickListener(btnPlayListener);
 
@@ -128,7 +92,9 @@ public class MainActivity extends Activity {
             }
 
             else {
-                countDownTimer = new CountDownTimer(((GlobalVars)getApplicationContext()).getTiempo() * 60000, 1000) {
+                gb.setTiempo(numberPicker.getValue());
+
+                countDownTimer = new CountDownTimer(numberPicker.getValue() * 60000, 1000) {
 
                     public void onTick(long millisUntilFinished) {
                         chronometer.setText("Remaining:\n " + millisUntilFinished / 1000 + "s");
@@ -147,36 +113,10 @@ public class MainActivity extends Activity {
                     gb.setPlayMusic(true);
                 else
                     gb.setPlayMusic(false);
-                Toast.makeText(getApplicationContext(), "Playing every " + gb.getTiempo() + " minutes", Toast.LENGTH_SHORT).show();
                 startService(new Intent(MainActivity.this, SoundService.class));
             }
         }
     };
-
-    View.OnClickListener btnTimeListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
-            globalVariable.setTiempo(Integer.parseInt((String)view.getTag()));
-            resetTimeBtns();
-            view.setBackgroundResource(R.drawable.boton_selected);
-        }
-    };
-
-    private void resetTimeBtns () {
-        tv3.setBackgroundResource(R.drawable.boton);
-        tv5.setBackgroundResource(R.drawable.boton);
-        tv7.setBackgroundResource(R.drawable.boton);
-        tv10.setBackgroundResource(R.drawable.boton);
-        tv15.setBackgroundResource(R.drawable.boton);
-        tv20.setBackgroundResource(R.drawable.boton);
-        tv1.setBackgroundResource(R.drawable.boton);
-        tv2.setBackgroundResource(R.drawable.boton);
-        tv4.setBackgroundResource(R.drawable.boton);
-        tv6.setBackgroundResource(R.drawable.boton);
-        tv25.setBackgroundResource(R.drawable.boton);
-        tv30.setBackgroundResource(R.drawable.boton);
-    }
 
     @Override
     public void onDestroy () {
