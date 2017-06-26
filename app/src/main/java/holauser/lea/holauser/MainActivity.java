@@ -30,6 +30,8 @@ public class MainActivity extends Activity {
     CheckBox cuenco;
     @BindView(R.id.cb_koshi)
     CheckBox koshi;
+    @BindView(R.id.cb_triangle)
+    CheckBox triangle;
     @BindView(R.id.cb_enable_music)
     CheckBox music;
 
@@ -44,6 +46,7 @@ public class MainActivity extends Activity {
 
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(30);
+        numberPicker.setValue(3);
 
         btnPlay.setOnClickListener(btnPlayListener);
 
@@ -58,6 +61,7 @@ public class MainActivity extends Activity {
                 } else {
                     globalVariable.setSonido(R.raw.cuenco);
                     koshi.setChecked(false);
+                    triangle.setChecked(false);
                 }
             }
         });
@@ -73,6 +77,23 @@ public class MainActivity extends Activity {
                 } else {
                     globalVariable.setSonido(R.raw.koshi);
                     cuenco.setChecked(false);
+                    triangle.setChecked(false);
+                }
+            }
+        });
+
+        triangle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
+
+                if (globalVariable.getSonido() == R.raw.triangle) {
+                    triangle.setChecked(true);
+                } else {
+                    globalVariable.setSonido(R.raw.triangle);
+                    cuenco.setChecked(false);
+                    koshi.setChecked(false);
                 }
             }
         });
