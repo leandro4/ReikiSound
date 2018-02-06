@@ -1,118 +1,138 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:id="@+id/fondo"
     android:background="#41ccff"
-    android:weightSum="1"
-    android:keepScreenOn="true"
-    android:touchscreenBlocksFocus="false">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="120dp"
-        android:id="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/reiki" />
-
-    <RelativeLayout
-        android:id="@+id/rl_content_select"
-        android:layout_below="@+id/imageView"
-        android:layout_above="@+id/btn_play"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:id="@+id/fondo"
+        android:orientation="vertical"
+        android:keepScreenOn="true"
+        android:touchscreenBlocksFocus="false">
 
-        <TextView
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time (minutes)"
-            android:id="@+id/cuadro_lapso"
-            android:textColor="#ffffff"
-            android:textSize="25sp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_height="120dp"
+            android:src="@drawable/reiki" />
 
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/cuadro_lapso"
-            android:layout_marginTop="16dp"
-            android:id="@+id/numberPicker" />
+        <LinearLayout
+            android:id="@+id/rl_content_select"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <CheckBox
-            android:id="@+id/cb_cuenco"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/numberPicker"
-            android:background="@drawable/cuenco"
-            android:checked="true"
-            android:layout_width="100dp"
-            android:layout_height="70dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time (minutes)"
+                android:id="@+id/cuadro_lapso"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
 
-        <CheckBox
-            android:id="@+id/cb_triangle"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/numberPicker"
-            android:background="@drawable/triangle"
-            android:checked="false"
-            android:layout_centerHorizontal="true"
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:id="@+id/numberPicker" />
 
-        <CheckBox
-            android:id="@+id/cb_koshi"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/numberPicker"
-            android:background="@drawable/koshi"
-            android:checked="false"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <CheckBox
-            android:id="@+id/cb_enable_music"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enable Music"
-            android:textColor="#ffffff"
-            android:layout_marginTop="15dp"
-            android:layout_below="@+id/cb_cuenco"
-            android:checked="false"
-            android:layout_centerHorizontal="true" />
+                <CheckBox
+                    android:id="@+id/cb_cuenco"
+                    android:layout_weight="1"
+                    android:background="@drawable/cuenco"
+                    android:checked="true"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp" />
 
-    </RelativeLayout>
+                <CheckBox
+                    android:id="@+id/cb_triangle"
+                    android:layout_weight="1"
+                    android:background="@drawable/triangle"
+                    android:checked="false"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp" />
 
-    <RelativeLayout
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/imageView"
-        android:layout_above="@+id/btn_play"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+                <CheckBox
+                    android:id="@+id/cb_koshi"
+                    android:layout_weight="1"
+                    android:background="@drawable/koshi"
+                    android:checked="false"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/cb_enable_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enable Music"
+                android:textColor="#ffffff"
+                android:layout_marginTop="20dp"
+                android:checked="false"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
 
         <TextView
             android:text="Remaining:\n 0s"
             android:id="@+id/chronometer"
             android:visibility="gone"
+            android:layout_gravity="center"
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="50sp"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </RelativeLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btn_play"
-        android:text="PLAY"
-        android:textColor="#ffffff"
-        android:background="@drawable/boton_play"
-        android:padding="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btn_play"
+                android:text="PLAY"
+                android:textColor="#ffffff"
+                android:background="@drawable/boton_play"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"/>
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/btn_donate"
+                android:text="@string/donate_button"
+                android:textColor="#ffffff"
+                android:background="@drawable/boton_play"
+                android:padding="12dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

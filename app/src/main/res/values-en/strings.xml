@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Reiki Sound</string>
+    <string name="donate_title">Thanks for use Reiki Sound!</string>
+    <string name="donate_subtitle">Reiki Sound is free and has no advertisements!</string>
+    <string name="donate_body">It is very usefull for us if you could help the team to mantenaince and improving the service for all reiki comunity.</string>
+    <string name="donate_button">Donate</string>
+    <string name="donate_thanks">Thank you very much for your help!</string>
+    <string name="donate_button_not">No, thanks</string>
+    <string name="mercadopago_fail">Your payment was not successfull, try it again</string>
+    <string name="mercadopago_success">Thanks for your help!</string>
+    <string name="donate_title_choose">Thanks for donate to Reiki Sound</string>
+    <string name="donate_subtitle_choose">How much money would you like to donate?</string>
+</resources>

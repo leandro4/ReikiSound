@@ -1,5 +1,22 @@
 <resources>
-    <string name="app_name">Reiki Timer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Reiki Sound</string>
+
+
+    <string name="donate_title_choose">Gracias por donar a Reiki Sound</string>
+    <string name="donate_subtitle_choose">Cuánto desea donar?</string>
+
+    <string name="donate_title">Gracias por usar Reiki Sound :)</string>
+    <string name="donate_subtitle">Reiki Sound es gratis y libre de publicidades!</string>
+    <string name="donate_body">Es muy útil para nuestro equipo que pueda colaborar para seguir manteniendo y mejorando el servicio para todos los reikistas.</string>
+    <string name="donate_button">Donar</string>
+    <string name="donate_thanks">Muchas gracias por su ayuda!</string>
+    <string name="donate_button_not">No, gracias</string>
+
+
+    <string name="mercadopago_public_key" translatable="false">TEST-10be0335-cefc-4b0a-910f-316aaff7e8e2</string>
+    <string name="mercadopago_public_key_prod" translatable="false">APP_USR-71d43a62-1f31-4a2b-8c56-9106af133792</string>
+    <string name="mercadopago_fail">Tu pago no pudo ser efectuado, vuelva a intentarlo</string>
+    <string name="mercadopago_success">Gracias por tu ayuda a Reiki Sound!</string>
+
 </resources>
