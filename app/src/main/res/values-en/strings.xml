@@ -11,4 +11,10 @@
     <string name="mercadopago_success">Thanks for your help!</string>
     <string name="donate_title_choose">Thanks for donate to Reiki Sound</string>
     <string name="donate_subtitle_choose">How much money would you like to donate?</string>
+    <string name="selected_audio">Selected Audio</string>
+    <string name="selected_audio_body">Sorry but your audio file coul not be played. Please choose another one.</string>
+    <string name="select_audio_title">Select music</string>
+    <string name="select_audio_body">Choose a song from my device or use Reiki Sound default music?</string>
+    <string name="select_audio_select">Select</string>
+    <string name="select_audio_default">Use default</string>
 </resources>

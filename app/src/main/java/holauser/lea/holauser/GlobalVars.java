@@ -1,11 +1,13 @@
 package holauser.lea.holauser;
 import android.app.Application;
+import android.net.Uri;
 
 public class GlobalVars extends Application {
     private int audio = R.raw.cuenco;
     private int tiempo = 1;
     private boolean isPlaying = false;
     private boolean playMusic = false;
+    private Uri musicToPlay = null;
 
     public boolean isPlayMusic() {
         return playMusic;
@@ -37,5 +39,13 @@ public class GlobalVars extends Application {
 
     public void setPlaying(boolean playing) {
         isPlaying = playing;
+    }
+
+    public Uri getMusicToPlay() {
+        return musicToPlay;
+    }
+
+    public void setMusicToPlay(Uri musicToPlay) {
+        this.musicToPlay = musicToPlay;
     }
 }

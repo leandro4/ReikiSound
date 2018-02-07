@@ -1,17 +1,18 @@
 package holauser.lea.holauser.ui;
 
-import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class MainActivity extends Activity {
     CountDownTimer countDownTimer;
 
     public static final int PAYPAL_PAYMENT = 12345;
+    public static final int AUDIO_SELECTION = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,13 @@ public class MainActivity extends Activity {
         numberPicker.setMaxValue(30);
         numberPicker.setValue(3);
 
+        music.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    showSelectAudioDialog();
+            }
+        });
     }
 
     @OnClick (R.id.cb_cuenco)
@@ -146,31 +155,6 @@ public class MainActivity extends Activity {
 
     @OnClick (R.id.btn_donate)
     public void onDonateClick(View v) {
-        checkLocationPermission();
-    }
-
-    private void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        23);
-
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        23);
-            }
-        } else {
-            donate();
-        }
-    }
-
-    private void donate() {
         DonateDialogFragment dialog = new DonateDialogFragment();
         dialog.setActivity(this);
         dialog.show(getFragmentManager(), "donate");
@@ -186,24 +170,35 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == AUDIO_SELECTION && resultCode == Activity.RESULT_OK) {
+
+            Uri uri = data.getData();
+            if (MediaPlayer.create(this, uri) == null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.selected_audio));
+                builder.setMessage(getString(R.string.selected_audio_body));
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectAudio();
+                    }
+                });
+                builder.show();
+            } else {
+                GlobalVars gb = (GlobalVars) getApplicationContext();
+                gb.setMusicToPlay(uri);
+            }
+
+        } else if (resultCode == Activity.RESULT_OK) {
             PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
             if (confirm != null) {
                 try {
-
                     Toast.makeText(this, getString(R.string.mercadopago_success), Toast.LENGTH_SHORT).show();
-
                     Log.i("sampleapp", confirm.toJSONObject().toString(4));
-
-                    // TODO: send 'confirm' to your server for verification
-
                 } catch (JSONException e) {
                     Log.e("sampleapp", "no confirmation data: ", e);
                 }
             }
-        } else if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(this, getString(R.string.mercadopago_fail), Toast.LENGTH_SHORT).show();
-            Log.i("sampleapp", "The user canceled.");
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
             Toast.makeText(this, getString(R.string.mercadopago_fail), Toast.LENGTH_SHORT).show();
             Log.i("sampleapp", "Invalid payment / config set");
@@ -211,23 +206,31 @@ public class MainActivity extends Activity {
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    private void showSelectAudioDialog() {
 
-        switch (requestCode) {
-            case 23: {
-
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    donate();
-                }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.select_audio_title));
+        builder.setMessage(getString(R.string.select_audio_body));
+        builder.setPositiveButton(getString(R.string.select_audio_select), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectAudio();
             }
-        }
+        });
+        builder.setNegativeButton(getString(R.string.select_audio_default), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                GlobalVars gb = (GlobalVars)getApplicationContext();
+                gb.setMusicToPlay(null);
+            }
+        });
+        builder.show();
     }
 
-    private void selectAudioFile() {
+    private void selectAudio() {
         Intent intent_upload = new Intent();
         intent_upload.setType("audio/*");
         intent_upload.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent_upload,1234);
+        startActivityForResult(intent_upload,AUDIO_SELECTION);
     }
 }

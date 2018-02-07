@@ -26,9 +26,13 @@ public class SoundService extends Service {
     public int onStartCommand(Intent intenc, int flags, int idArranque) {
         final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
         rep = MediaPlayer.create(this, globalVariable.getSonido());
-        repMusic = MediaPlayer.create(this, R.raw.relaxing1);
         int tiempoEspera = 1000 * globalVariable.getTiempo() * 60;
         timer.purge();
+
+        if (globalVariable.getMusicToPlay() == null)
+            repMusic = MediaPlayer.create(this, R.raw.relaxing1);
+        else
+            repMusic = MediaPlayer.create(this, globalVariable.getMusicToPlay());
 
         if (globalVariable.isPlayMusic()) {
             repMusic.setLooping(true);
