@@ -2,6 +2,7 @@ package holauser.lea.holauser.ui;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,13 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mercadopago.core.MercadoPago;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
 
 import java.math.BigDecimal;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import holauser.lea.holauser.R;
+import holauser.lea.holauser.Utils;
+
+import static holauser.lea.holauser.ui.MainActivity.PAYPAL_PAYMENT;
 
 /**
  * Created by leandro on 6/2/18.
@@ -25,6 +32,9 @@ import holauser.lea.holauser.R;
 public class AmmountDonationDialogFragment extends DialogFragment {
 
     private Activity activity;
+    private static PayPalConfiguration config = new PayPalConfiguration()
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .clientId(Utils.PAYPAL_CLIENT_ID_LIVE);
 
     @Nullable
     @Override
@@ -66,13 +76,20 @@ public class AmmountDonationDialogFragment extends DialogFragment {
     }
 
     private void donate(int ammount) {
-        BigDecimal decimal = BigDecimal.valueOf(ammount);
 
-        new MercadoPago.StartActivityBuilder()
-                .setActivity(activity)
-                .setAmount(decimal)
-                .setPublicKey(activity.getString(R.string.mercadopago_public_key))
-                .startCardVaultActivity();
+        BigDecimal count = new BigDecimal(ammount);
+
+        Intent serviceConfig = new Intent(activity, PayPalService.class);
+        serviceConfig.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        activity.startService(serviceConfig);
+
+        PayPalPayment payment = new PayPalPayment(count, "USD", "ReikiSound contribution", PayPalPayment.PAYMENT_INTENT_SALE);
+
+        Intent paymentConfig = new Intent(activity, PaymentActivity.class);
+        paymentConfig.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        paymentConfig.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+        activity.startActivityForResult(paymentConfig, PAYPAL_PAYMENT);
+
         dismiss();
     }
 }

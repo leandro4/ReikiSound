@@ -14,16 +14,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mercadopago.core.MercadoPago;
-import com.mercadopago.exceptions.MPException;
-import com.mercadopago.model.Issuer;
-import com.mercadopago.model.PaymentMethod;
-import com.mercadopago.model.Token;
-import com.mercadopago.util.JsonUtil;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
+
+import org.json.JSONException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +53,7 @@ public class MainActivity extends Activity {
 
     CountDownTimer countDownTimer;
 
-    public static final int LOCATION_PERMISSION_REQUEST = 12345;
+    public static final int PAYPAL_PAYMENT = 12345;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,12 +158,12 @@ public class MainActivity extends Activity {
 
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        LOCATION_PERMISSION_REQUEST);
+                        23);
 
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        LOCATION_PERMISSION_REQUEST);
+                        23);
             }
         } else {
             donate();
@@ -182,36 +180,42 @@ public class MainActivity extends Activity {
     public void onDestroy () {
         super.onDestroy();
         stopService(new Intent(MainActivity.this, SoundService.class));
+        stopService(new Intent(this, PayPalService.class));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == MercadoPago.CARD_VAULT_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                PaymentMethod paymentMethod = JsonUtil.getInstance().fromJson(data.getStringExtra("paymentMethod"), PaymentMethod.class);
-                Issuer issuer = JsonUtil.getInstance().fromJson(data.getStringExtra("issuer"), Issuer.class);
-                Token token = JsonUtil.getInstance().fromJson(data.getStringExtra("token"), Token.class);
+        if (resultCode == Activity.RESULT_OK) {
+            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+            if (confirm != null) {
+                try {
 
-                Toast.makeText(this, getString(R.string.mercadopago_success), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.mercadopago_success), Toast.LENGTH_SHORT).show();
 
-            } else {
-                Toast.makeText(this, getString(R.string.mercadopago_fail), Toast.LENGTH_SHORT).show();
-                if ((data != null) && (data.hasExtra("mpException"))) {
-                    MPException exception = JsonUtil.getInstance().fromJson(data.getStringExtra("mpException"), MPException.class);
-                    Log.e("MercagoPago", "Mensaje: " + exception.getApiException().getError());
-                    Log.e("MercagoPago", "Detalle: " + exception.getApiException().getMessage());
-                    Log.e("MercagoPago", "Api status :" + exception.getApiException().getStatus());
+                    Log.i("sampleapp", confirm.toJSONObject().toString(4));
+
+                    // TODO: send 'confirm' to your server for verification
+
+                } catch (JSONException e) {
+                    Log.e("sampleapp", "no confirmation data: ", e);
                 }
             }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            Toast.makeText(this, getString(R.string.mercadopago_fail), Toast.LENGTH_SHORT).show();
+            Log.i("sampleapp", "The user canceled.");
+        } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+            Toast.makeText(this, getString(R.string.mercadopago_fail), Toast.LENGTH_SHORT).show();
+            Log.i("sampleapp", "Invalid payment / config set");
         }
+
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
 
         switch (requestCode) {
-            case LOCATION_PERMISSION_REQUEST: {
+            case 23: {
 
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     donate();

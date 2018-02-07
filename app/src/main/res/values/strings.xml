@@ -14,8 +14,6 @@
     <string name="donate_button_not">No, gracias</string>
 
 
-    <string name="mercadopago_public_key" translatable="false">TEST-10be0335-cefc-4b0a-910f-316aaff7e8e2</string>
-    <string name="mercadopago_public_key_prod" translatable="false">APP_USR-71d43a62-1f31-4a2b-8c56-9106af133792</string>
     <string name="mercadopago_fail">Tu pago no pudo ser efectuado, vuelva a intentarlo</string>
     <string name="mercadopago_success">Gracias por tu ayuda a Reiki Sound!</string>
 

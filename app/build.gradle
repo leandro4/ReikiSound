@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "holauser.lea.holauser"
-        minSdkVersion 11
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 9
         versionName "4.1"
@@ -32,5 +32,5 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-    implementation ('com.mercadopago:sdk:2.3.6') { transitive = true }
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.14.1'
 }
