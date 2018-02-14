@@ -9,4 +9,6 @@
         <item name="android:background">@drawable/boton</item>
     </style>
 
+    <style name="TextAppearance.AppCompat.Notification" parent="TextAppearance.AppCompat.Notification" />
+
 </resources>

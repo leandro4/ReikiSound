@@ -17,4 +17,5 @@
     <string name="select_audio_body">Choose a song from my device or use Reiki Sound default music?</string>
     <string name="select_audio_select">Select</string>
     <string name="select_audio_default">Use default</string>
+    <string name="card_data_error">Some fields are wrong, please verify and try again.</string>
 </resources>

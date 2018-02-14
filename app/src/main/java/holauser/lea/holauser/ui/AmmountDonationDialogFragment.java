@@ -12,18 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
-import com.paypal.android.sdk.payments.PayPalPayment;
-import com.paypal.android.sdk.payments.PayPalService;
-import com.paypal.android.sdk.payments.PaymentActivity;
-
-import java.math.BigDecimal;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import holauser.lea.holauser.R;
 import holauser.lea.holauser.Utils;
-
-import static holauser.lea.holauser.ui.MainActivity.PAYPAL_PAYMENT;
 
 /**
  * Created by leandro on 6/2/18.
@@ -77,18 +70,19 @@ public class AmmountDonationDialogFragment extends DialogFragment {
 
     private void donate(int ammount) {
 
-        BigDecimal count = new BigDecimal(ammount);
+        activity.startActivity(new Intent(activity, PaymentActivity.class));
 
-        Intent serviceConfig = new Intent(activity, PayPalService.class);
-        serviceConfig.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        activity.startService(serviceConfig);
-
-        PayPalPayment payment = new PayPalPayment(count, "USD", "ReikiSound contribution", PayPalPayment.PAYMENT_INTENT_SALE);
-
-        Intent paymentConfig = new Intent(activity, PaymentActivity.class);
-        paymentConfig.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        paymentConfig.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
-        activity.startActivityForResult(paymentConfig, PAYPAL_PAYMENT);
+//        BigDecimal count = new BigDecimal(ammount);
+//        Intent serviceConfig = new Intent(activity, PayPalService.class);
+//        serviceConfig.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+//        activity.startService(serviceConfig);
+//
+//        PayPalPayment payment = new PayPalPayment(count, "USD", "ReikiSound contribution", PayPalPayment.PAYMENT_INTENT_SALE);
+//
+//        Intent paymentConfig = new Intent(activity, PaymentActivity.class);
+//        paymentConfig.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+//        paymentConfig.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+//        activity.startActivityForResult(paymentConfig, PAYPAL_PAYMENT);
 
         dismiss();
     }
