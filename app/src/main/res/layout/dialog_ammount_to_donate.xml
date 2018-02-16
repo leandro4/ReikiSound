@@ -35,6 +35,7 @@
 
 
         <LinearLayout
+            android:id="@+id/buttonsLinear"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -71,6 +72,7 @@
                 android:layout_marginBottom="16dp" />
 
             <Button
+                android:visibility="gone"
                 android:id="@+id/btn_50"
                 android:text="50$"
                 android:textColor="#ffffff"

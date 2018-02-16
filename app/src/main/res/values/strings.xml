@@ -24,4 +24,6 @@
     <string name="mercadopago_fail">Tu pago no pudo ser efectuado, vuelva a intentarlo</string>
     <string name="mercadopago_success">Gracias por tu ayuda a Reiki Sound!</string>
 
+    <string name="music_selected">Música seleccionada</string>
+
 </resources>

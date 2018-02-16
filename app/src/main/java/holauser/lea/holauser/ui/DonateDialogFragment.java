@@ -2,8 +2,10 @@ package holauser.lea.holauser.ui;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -44,9 +46,9 @@ public class DonateDialogFragment extends DialogFragment {
     @OnClick(R.id.btn_ok)
     public void onOkClick(View v) {
 
-        AmmountDonationDialogFragment dialog = new AmmountDonationDialogFragment();
-        dialog.setActivity(activity);
-        dialog.show(getFragmentManager(), "donate_choose");
+        Uri uri = Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GSUQNP7SN6AZ4");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
 
         dismiss();
     }

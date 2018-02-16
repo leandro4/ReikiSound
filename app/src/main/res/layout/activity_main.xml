@@ -46,43 +46,92 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <CheckBox
-                    android:id="@+id/cb_cuenco"
+                <LinearLayout
                     android:layout_weight="1"
-                    android:background="@drawable/cuenco"
-                    android:checked="true"
+                    android:orientation="horizontal"
                     android:layout_width="0dp"
-                    android:layout_height="70dp" />
+                    android:layout_height="70dp">
 
-                <CheckBox
-                    android:id="@+id/cb_triangle"
-                    android:layout_weight="1"
-                    android:background="@drawable/triangle"
-                    android:checked="false"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_width="0dp"
-                    android:layout_height="70dp" />
+                    <ImageView
+                        android:src="@drawable/cuenco"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" />
 
-                <CheckBox
-                    android:id="@+id/cb_koshi"
+                    <CheckBox
+                        android:id="@+id/cb_cuenco"
+                        android:checked="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_weight="1"
-                    android:background="@drawable/koshi"
-                    android:checked="false"
+                    android:orientation="horizontal"
                     android:layout_width="0dp"
-                    android:layout_height="70dp" />
+                    android:layout_height="70dp">
+
+                    <ImageView
+                        android:src="@drawable/triangle"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_triangle"
+                        android:checked="false"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp">
+
+                    <ImageView
+                        android:src="@drawable/koshi"
+                        android:layout_width="60dp"
+                        android:layout_height="70dp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_koshi"
+                        android:checked="false"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/cb_enable_music"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enable Music"
-                android:textColor="#ffffff"
-                android:layout_marginTop="20dp"
-                android:checked="false"
-                android:layout_gravity="center" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/cb_enable_music"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enable Music"
+                    android:textColor="#ffffff"
+                    android:checked="false"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/tvMusic"
+                    android:text="Reiki Sound Music"
+                    android:visibility="gone"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -99,7 +148,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="end"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
@@ -114,7 +163,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"/>
 
             <Button
@@ -122,9 +170,6 @@
                 android:text="@string/donate_button"
                 android:textColor="#ffffff"
                 android:background="@drawable/boton_play"
-                android:padding="12dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

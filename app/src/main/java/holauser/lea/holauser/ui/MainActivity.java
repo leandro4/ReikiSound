@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,13 +15,6 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.paypal.android.sdk.payments.PayPalService;
-import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmation;
-
-import org.json.JSONException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,10 +43,11 @@ public class MainActivity extends Activity {
     CheckBox triangle;
     @BindView(R.id.cb_enable_music)
     CheckBox music;
+    @BindView(R.id.tvMusic)
+    TextView tvMusicName;
 
     CountDownTimer countDownTimer;
 
-    public static final int PAYPAL_PAYMENT = 12345;
     public static final int AUDIO_SELECTION = 1000;
 
     @Override
@@ -70,8 +63,12 @@ public class MainActivity extends Activity {
         music.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
+                if (isChecked) {
                     showSelectAudioDialog();
+                }
+//                    tvMusicName.setVisibility(View.VISIBLE);
+//                } else
+//                    tvMusicName.setVisibility(View.GONE);
             }
         });
     }
@@ -164,7 +161,6 @@ public class MainActivity extends Activity {
     public void onDestroy () {
         super.onDestroy();
         stopService(new Intent(MainActivity.this, SoundService.class));
-        stopService(new Intent(this, PayPalService.class));
     }
 
     @Override
@@ -187,23 +183,13 @@ public class MainActivity extends Activity {
             } else {
                 GlobalVars gb = (GlobalVars) getApplicationContext();
                 gb.setMusicToPlay(uri);
+//                try {
+//                    tvMusicName.setText(uri.getLastPathSegment());
+//                } catch (NullPointerException e) {
+//                    tvMusicName.setText("Music selected");
+//                }
             }
-
-        } else if (resultCode == Activity.RESULT_OK) {
-            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-            if (confirm != null) {
-                try {
-                    Toast.makeText(this, getString(R.string.mercadopago_success), Toast.LENGTH_SHORT).show();
-                    Log.i("sampleapp", confirm.toJSONObject().toString(4));
-                } catch (JSONException e) {
-                    Log.e("sampleapp", "no confirmation data: ", e);
-                }
-            }
-        } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-            Toast.makeText(this, getString(R.string.mercadopago_fail), Toast.LENGTH_SHORT).show();
-            Log.i("sampleapp", "Invalid payment / config set");
         }
-
     }
 
     private void showSelectAudioDialog() {
@@ -224,6 +210,7 @@ public class MainActivity extends Activity {
                 gb.setMusicToPlay(null);
             }
         });
+        builder.setCancelable(false);
         builder.show();
     }
 
