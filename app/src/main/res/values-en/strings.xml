@@ -18,4 +18,5 @@
     <string name="select_audio_select">Select</string>
     <string name="select_audio_default">Use default</string>
     <string name="music_selected">Music selected</string>
+    <string name="service_subtitle">Timer running...</string>
 </resources>

@@ -1,17 +1,24 @@
 package holauser.lea.holauser.ui;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.Button;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,7 +32,7 @@ import holauser.lea.holauser.services.SoundService;
 public class MainActivity extends Activity {
 
     @BindView(R.id.btn_play)
-    Button btnPlay;
+    ImageView btnPlay;
     @BindView(R.id.rl_content_select)
     LinearLayout rlSelectContent;
     @BindView(R.id.chronometer)
@@ -45,7 +52,7 @@ public class MainActivity extends Activity {
     @BindView(R.id.tvMusic)
     TextView tvMusicName;
 
-    CountDownTimer countDownTimer;
+    BroadcastReceiver receiver;
 
     public static final int AUDIO_SELECTION = 1000;
 
@@ -55,17 +62,33 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        setStatusBarColor();
+
         music.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+                if (isChecked)
                     showSelectAudioDialog();
-                }
-//                    tvMusicName.setVisibility(View.VISIBLE);
-//                } else
-//                    tvMusicName.setVisibility(View.GONE);
             }
         });
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String time = intent.getStringExtra(SoundService.REIKI_MESSAGE);
+                chronometer.setText(time);
+            }
+        };
+
+        setStopedMode(!((GlobalVars)getApplicationContext()).isPlaying());
+    }
+
+    private void setStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        }
     }
 
     @OnClick (R.id.cb_cuenco)
@@ -112,37 +135,28 @@ public class MainActivity extends Activity {
         GlobalVars gb = (GlobalVars)getApplicationContext();
 
         if (gb.isPlaying()) {
-            countDownTimer.cancel();
             stopService(new Intent(MainActivity.this, SoundService.class));
-            rlSelectContent.setVisibility(View.VISIBLE);
-            chronometer.setVisibility(View.GONE);
-            btnPlay.setText("PLAY");
+            setStopedMode(true);
         }
 
         else {
             gb.setTiempo(numberPicker.getValue());
+            setStopedMode(false);
 
-            countDownTimer = new CountDownTimer(numberPicker.getValue() * 60000, 1000) {
-
-                public void onTick(long millisUntilFinished) {
-                    chronometer.setText("Remaining:\n " + millisUntilFinished / 1000 + "s");
-                }
-
-                public void onFinish() {
-                    countDownTimer.start();
-                }
-            };
-
-            countDownTimer.start();
-            rlSelectContent.setVisibility(View.GONE);
-            chronometer.setVisibility(View.VISIBLE);
-            btnPlay.setText("STOP");
             if (music.isChecked())
                 gb.setPlayMusic(true);
             else
                 gb.setPlayMusic(false);
+
+            registerBroadcastReceiver(true);
             startService(new Intent(MainActivity.this, SoundService.class));
         }
+    }
+
+    private void setStopedMode(boolean stoped) {
+        rlSelectContent.setVisibility(stoped ? View.VISIBLE : View.GONE);
+        chronometer.setVisibility(!stoped ? View.VISIBLE : View.GONE);
+        btnPlay.setImageResource(stoped ? R.drawable.ic_play : R.drawable.ic_stop);
     }
 
     @OnClick (R.id.btn_donate)
@@ -152,11 +166,25 @@ public class MainActivity extends Activity {
         dialog.show(getFragmentManager(), "donate");
     }
 
-//    @Override
-//    public void onDestroy () {
-//        super.onDestroy();
-//        stopService(new Intent(MainActivity.this, SoundService.class));
-//    }
+    @Override
+    public void onStop () {
+        super.onStop();
+        registerBroadcastReceiver(false);
+    }
+
+    @Override
+    public void onResume () {
+        super.onResume();
+        registerBroadcastReceiver(true);
+    }
+
+    private void registerBroadcastReceiver(boolean register) {
+        if (register) {
+            LocalBroadcastManager.getInstance(this).registerReceiver((receiver), new IntentFilter(SoundService.BROADCAST_REIKI));
+        }
+        else
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -178,12 +206,9 @@ public class MainActivity extends Activity {
             } else {
                 GlobalVars gb = (GlobalVars) getApplicationContext();
                 gb.setMusicToPlay(uri);
-//                try {
-//                    tvMusicName.setText(uri.getLastPathSegment());
-//                } catch (NullPointerException e) {
-//                    tvMusicName.setText("Music selected");
-//                }
             }
+        } else if (requestCode == AUDIO_SELECTION && resultCode == Activity.RESULT_CANCELED) {
+            music.setChecked(false);
         }
     }
 

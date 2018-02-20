@@ -26,4 +26,6 @@
 
     <string name="music_selected">Música seleccionada</string>
 
+    <string name="service_subtitle">Cronómetro corriendo...</string>
+
 </resources>

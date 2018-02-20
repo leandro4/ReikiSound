@@ -60,6 +60,7 @@
                     <CheckBox
                         android:id="@+id/cb_cuenco"
                         android:checked="true"
+                        android:buttonTint="#ffffff"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -80,6 +81,7 @@
                     <CheckBox
                         android:id="@+id/cb_triangle"
                         android:checked="false"
+                        android:buttonTint="#ffffff"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -100,6 +102,7 @@
                     <CheckBox
                         android:id="@+id/cb_koshi"
                         android:checked="false"
+                        android:buttonTint="#ffffff"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -120,6 +123,7 @@
                     android:layout_height="wrap_content"
                     android:text="Enable Music"
                     android:textColor="#ffffff"
+                    android:buttonTint="#ffffff"
                     android:checked="false"
                     android:layout_gravity="center" />
 
@@ -155,11 +159,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_play"
-                android:text="PLAY"
-                android:textColor="#ffffff"
-                android:background="@drawable/boton_play"
+                android:src="@drawable/ic_play"
+                android:background="@drawable/circle_play"
                 android:padding="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -170,9 +173,10 @@
                 android:id="@+id/btn_donate"
                 android:text="@string/donate_button"
                 android:textColor="#ffffff"
+                android:textAllCaps="false"
                 android:background="@drawable/boton_play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="65dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"/>
