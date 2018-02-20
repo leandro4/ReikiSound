@@ -67,7 +67,7 @@ public class SoundService extends Service {
         countDownTimer = new CountDownTimer(tiempoEspera, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                sendResult("Remaining:\n " + millisUntilFinished / 1000 + "s");
+                sendResult(getString(R.string.remaining) + "\n " + millisUntilFinished / 1000 + "s");
             }
 
             public void onFinish() {

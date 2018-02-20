@@ -21,11 +21,15 @@
     <string name="selected_audio">Audio seleccionado</string>
     <string name="selected_audio_body">Lo sentimos pero no se puede reproducir el elemento seleccionado, intente con otro audio o bien cambie el formato.</string>
 
-    <string name="mercadopago_fail">Tu pago no pudo ser efectuado, vuelva a intentarlo</string>
-    <string name="mercadopago_success">Gracias por tu ayuda a Reiki Sound!</string>
+    <string name="mercadopago_fail" translatable="false">Tu pago no pudo ser efectuado, vuelva a intentarlo</string>
+    <string name="mercadopago_success" translatable="false">Gracias por tu ayuda a Reiki Sound!</string>
 
     <string name="music_selected">Música seleccionada</string>
 
     <string name="service_subtitle">Cronómetro corriendo...</string>
+
+    <string name="time_title">Tiempo (minutos):</string>
+    <string name="enable_music">Activar música</string>
+    <string name="remaining">Tiempo restante:</string>
 
 </resources>

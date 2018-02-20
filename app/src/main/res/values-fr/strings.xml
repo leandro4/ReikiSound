@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Reiki Sound</string>
+
+    <string name="donate_title_choose">Merci de faire un don à Reiki Sound</string>
+    <string name="donate_subtitle_choose">Combien voulez-vous donner?</string>
+
+    <string name="donate_title">Merci d\'utiliser Reiki Sound :)</string>
+    <string name="donate_subtitle">Reiki Sound est gratuit et sans publicité!</string>
+    <string name="donate_body">C\'est très utile pour notre équipe qui peut collaborer pour continuer à maintenir et améliorer le service pour tous les Reikistas.</string>
+    <string name="donate_button">Faire un don</string>
+    <string name="donate_thanks">Merci beaucoup pour votre aide!</string>
+    <string name="donate_button_not">Non merci</string>
+    <string name="select_audio_title">Sélectionnez la musique</string>
+    <string name="select_audio_body">Choisissez une chanson de votre appareil ou utilisez la musique par défaut de Reiki Sound?</string>
+    <string name="select_audio_select">Sélectionnez</string>
+    <string name="select_audio_default">Utiliser par défaut</string>
+    <string name="selected_audio">Audio sélectionné</string>
+    <string name="selected_audio_body">Nous sommes désolés mais l\'élément sélectionné ne peut pas être lu, essayez un autre son ou changez le format.</string>
+    <string name="music_selected">Musique sélectionnée</string>
+    <string name="service_subtitle">Chronomètre en cours ...</string>
+    <string name="remaining">Temps restant:</string>
+    <string name="time_title">Temps (minutes):</string>
+    <string name="enable_music">Activer la musique</string>
+
+</resources>

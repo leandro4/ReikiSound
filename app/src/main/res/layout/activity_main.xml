@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time (minutes)"
+                android:text="@string/time_title"
                 android:id="@+id/cuadro_lapso"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
@@ -46,78 +46,6 @@
                 android:layout_height="wrap_content" />
 
             <LinearLayout
-                android:visibility="gone"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="70dp">
-
-                    <ImageView
-                        android:src="@drawable/cuenco"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp" />
-
-                    <CheckBox
-                        android:id="@+id/cb_cuenco"
-                        android:checked="true"
-                        android:buttonTint="#ffffff"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="70dp">
-
-                    <ImageView
-                        android:src="@drawable/triangle"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp" />
-
-                    <CheckBox
-                        android:id="@+id/cb_triangle"
-                        android:checked="false"
-                        android:buttonTint="#ffffff"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="70dp">
-
-                    <ImageView
-                        android:src="@drawable/koshi"
-                        android:layout_width="60dp"
-                        android:layout_height="70dp" />
-
-                    <CheckBox
-                        android:id="@+id/cb_koshi"
-                        android:checked="false"
-                        android:buttonTint="#ffffff"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -127,7 +55,7 @@
                     android:id="@+id/cb_enable_music"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Enable Music"
+                    android:text="@string/enable_music"
                     android:textColor="#ffffff"
                     android:buttonTint="#ffffff"
                     android:checked="false"
@@ -147,7 +75,7 @@
         </LinearLayout>
 
         <TextView
-            android:text="Remaining:\n 0s"
+            android:text="@string/remaining"
             android:id="@+id/chronometer"
             android:visibility="gone"
             android:layout_gravity="center"
