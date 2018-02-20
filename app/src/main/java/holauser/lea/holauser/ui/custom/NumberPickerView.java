@@ -1,4 +1,4 @@
-package holauser.lea.holauser.ui;
+package holauser.lea.holauser.ui.custom;
 
 import android.content.Context;
 import android.os.Build;
@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import holauser.lea.holauser.R;
+import holauser.lea.holauser.util.Animations;
 
 /**
  * Created by leandro on 20/2/18.
@@ -53,6 +54,8 @@ public class NumberPickerView extends RelativeLayout {
 
     @OnClick(R.id.ivLess)
     public void onLessClick(View v) {
+        Animations.animateScale(v);
+
         int count = Integer.valueOf(tvCount.getText().toString());
         if (count < 2)
             return;
@@ -62,6 +65,8 @@ public class NumberPickerView extends RelativeLayout {
 
     @OnClick(R.id.ivMore)
     public void onMoreClick(View v) {
+        Animations.animateScale(v);
+
         int count = Integer.valueOf(tvCount.getText().toString());
         if (count > 59)
             return;

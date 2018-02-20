@@ -28,6 +28,8 @@ import butterknife.OnClick;
 import holauser.lea.holauser.GlobalVars;
 import holauser.lea.holauser.R;
 import holauser.lea.holauser.services.SoundService;
+import holauser.lea.holauser.ui.custom.NumberPickerView;
+import holauser.lea.holauser.util.Animations;
 
 public class MainActivity extends Activity {
 
@@ -41,12 +43,6 @@ public class MainActivity extends Activity {
     @BindView(R.id.numberPicker)
     NumberPickerView numberPicker;
 
-    @BindView(R.id.cb_cuenco)
-    CheckBox cuenco;
-    @BindView(R.id.cb_koshi)
-    CheckBox koshi;
-    @BindView(R.id.cb_triangle)
-    CheckBox triangle;
     @BindView(R.id.cb_enable_music)
     CheckBox music;
     @BindView(R.id.tvMusic)
@@ -91,47 +87,10 @@ public class MainActivity extends Activity {
         }
     }
 
-    @OnClick (R.id.cb_cuenco)
-    public void onCuencoClick(View v) {
-        final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
-
-        if (globalVariable.getSonido() == R.raw.cuenco) {
-            cuenco.setChecked(true);
-        } else {
-            globalVariable.setSonido(R.raw.cuenco);
-            koshi.setChecked(false);
-            triangle.setChecked(false);
-        }
-    }
-
-    @OnClick (R.id.cb_koshi)
-    public void onKoshiClick(View v) {
-        final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
-
-        if (globalVariable.getSonido() == R.raw.koshi) {
-            koshi.setChecked(true);
-        } else {
-            globalVariable.setSonido(R.raw.koshi);
-            cuenco.setChecked(false);
-            triangle.setChecked(false);
-        }
-    }
-
-    @OnClick (R.id.cb_triangle)
-    public void onTriangleClick(View v) {
-        final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
-
-        if (globalVariable.getSonido() == R.raw.triangle) {
-            triangle.setChecked(true);
-        } else {
-            globalVariable.setSonido(R.raw.triangle);
-            cuenco.setChecked(false);
-            koshi.setChecked(false);
-        }
-    }
-
     @OnClick (R.id.btn_play)
     public void onPlayClick(View v) {
+        Animations.animateScale(v);
+
         GlobalVars gb = (GlobalVars)getApplicationContext();
 
         if (gb.isPlaying()) {
@@ -161,6 +120,8 @@ public class MainActivity extends Activity {
 
     @OnClick (R.id.btn_donate)
     public void onDonateClick(View v) {
+        Animations.animateScale(v);
+
         DonateDialogFragment dialog = new DonateDialogFragment();
         dialog.setActivity(this);
         dialog.show(getFragmentManager(), "donate");

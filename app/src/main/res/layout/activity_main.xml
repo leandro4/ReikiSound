@@ -34,13 +34,19 @@
                 android:textSize="20sp"
                 android:layout_gravity="center"/>
 
-            <holauser.lea.holauser.ui.NumberPickerView
+            <holauser.lea.holauser.ui.custom.NumberPickerView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/numberPicker" />
 
+            <holauser.lea.holauser.ui.custom.SoundSelectorView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"

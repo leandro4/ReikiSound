@@ -32,6 +32,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
+    compile 'com.daimajia.easing:library:2.0@aar'
+    compile 'com.daimajia.androidanimations:library:2.3@aar'
+
 //    implementation 'com.paypal.sdk:paypal-android-sdk:2.14.1'
 //    implementation files('libs/paypal_mpl_sdk.jar')
 }
