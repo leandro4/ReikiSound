@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -33,7 +32,7 @@ public class MainActivity extends Activity {
     TextView chronometer;
 
     @BindView(R.id.numberPicker)
-    NumberPicker numberPicker;
+    NumberPickerView numberPicker;
 
     @BindView(R.id.cb_cuenco)
     CheckBox cuenco;
@@ -55,10 +54,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        numberPicker.setMinValue(1);
-        numberPicker.setMaxValue(30);
-        numberPicker.setValue(3);
 
         music.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -157,11 +152,11 @@ public class MainActivity extends Activity {
         dialog.show(getFragmentManager(), "donate");
     }
 
-    @Override
-    public void onDestroy () {
-        super.onDestroy();
-        stopService(new Intent(MainActivity.this, SoundService.class));
-    }
+//    @Override
+//    public void onDestroy () {
+//        super.onDestroy();
+//        stopService(new Intent(MainActivity.this, SoundService.class));
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
