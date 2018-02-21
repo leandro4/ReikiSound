@@ -137,6 +137,7 @@ public class MainActivity extends Activity {
     public void onResume () {
         super.onResume();
         registerBroadcastReceiver(true);
+        setStopedMode(!((GlobalVars)getApplicationContext()).isPlaying());
     }
 
     private void registerBroadcastReceiver(boolean register) {

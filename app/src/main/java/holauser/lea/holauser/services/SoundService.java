@@ -35,10 +35,12 @@ public class SoundService extends Service {
     static final public String BROADCAST_REIKI = "broadcast_reiki";
     static final public String REIKI_MESSAGE = "reiki_message";
 
-    public void sendResult(String time) {
+    public void sendResult(String title, String time) {
         Intent intent = new Intent(BROADCAST_REIKI);
-        intent.putExtra(REIKI_MESSAGE, time);
+        intent.putExtra(REIKI_MESSAGE, title + "\n"+ time);
         broadcaster.sendBroadcast(intent);
+
+        makeNotification(this, time);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class SoundService extends Service {
         countDownTimer = new CountDownTimer(tiempoEspera, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                sendResult(getString(R.string.remaining) + "\n " + millisUntilFinished / 1000 + "s");
+                sendResult(getString(R.string.remaining), millisUntilFinished / 1000 + "s");
             }
 
             public void onFinish() {
@@ -84,8 +86,6 @@ public class SoundService extends Service {
             }
         };
         timer.scheduleAtFixedRate(timerTask, 0, tiempoEspera);
-
-        makeNotification(this);
 
         return START_STICKY;
     }
@@ -108,15 +108,16 @@ public class SoundService extends Service {
 
     }
 
-    private void makeNotification(Context context) {
+    private void makeNotification(Context context, String time) {
         Intent intent = new Intent(context, MainActivity.class);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification.Builder builder = new Notification.Builder(context)
-                .setContentTitle(context.getString(R.string.app_name))
-                .setContentText(context.getString(R.string.service_subtitle))
+                .setSubText(context.getString(R.string.service_subtitle))
+                .setContentTitle(context.getString(R.string.remaining))
+                .setContentText(time)
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.reiki)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon));
