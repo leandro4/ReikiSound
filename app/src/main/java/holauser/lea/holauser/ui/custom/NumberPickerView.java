@@ -25,6 +25,9 @@ public class NumberPickerView extends RelativeLayout {
     @BindView(R.id.tvCount)
     TextView tvCount;
 
+    private int maxValue = 60;
+    private int minValue = 1;
+
     public NumberPickerView(Context context) {
         super(context);
         init(null);
@@ -57,7 +60,7 @@ public class NumberPickerView extends RelativeLayout {
         Animations.animateScale(v);
 
         int count = Integer.valueOf(tvCount.getText().toString());
-        if (count < 2)
+        if (count == minValue)
             return;
         count--;
         tvCount.setText(String.valueOf(count));
@@ -68,13 +71,26 @@ public class NumberPickerView extends RelativeLayout {
         Animations.animateScale(v);
 
         int count = Integer.valueOf(tvCount.getText().toString());
-        if (count > 59)
+        if (count == maxValue)
             return;
         count++;
         tvCount.setText(String.valueOf(count));
     }
 
+    public void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
+    }
+
+    public void setMinValue(int minValue) {
+        this.minValue = minValue;
+    }
+
     public int getValue() {
         return Integer.valueOf(tvCount.getText().toString());
+    }
+
+    public void setValue(int time) {
+        if (time < minValue || time > maxValue) return;
+        tvCount.setText(String.valueOf(time));
     }
 }

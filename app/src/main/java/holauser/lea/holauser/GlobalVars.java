@@ -8,6 +8,7 @@ public class GlobalVars extends Application {
     private boolean isPlaying = false;
     private boolean playMusic = false;
     private Uri musicToPlay = null;
+    private float volume = 1f;
 
     public boolean isPlayMusic() {
         return playMusic;
@@ -47,5 +48,13 @@ public class GlobalVars extends Application {
 
     public void setMusicToPlay(Uri musicToPlay) {
         this.musicToPlay = musicToPlay;
+    }
+
+    public float getVolume() {
+        return volume;
+    }
+
+    public void setVolume(float volume) {
+        this.volume = volume;
     }
 }

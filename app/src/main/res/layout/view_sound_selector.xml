@@ -14,7 +14,6 @@
     <ImageView
         android:id="@+id/ivSelected"
         android:src="@drawable/cuenco"
-        android:layout_margin="20dp"
         android:layout_width="140dp"
         android:layout_height="140dp" />
 

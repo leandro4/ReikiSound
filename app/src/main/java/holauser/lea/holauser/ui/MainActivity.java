@@ -43,6 +43,9 @@ public class MainActivity extends Activity {
     @BindView(R.id.numberPicker)
     NumberPickerView numberPicker;
 
+    @BindView(R.id.volumePicker)
+    NumberPickerView volumePicker;
+
     @BindView(R.id.cb_enable_music)
     CheckBox music;
     @BindView(R.id.tvMusic)
@@ -59,6 +62,10 @@ public class MainActivity extends Activity {
         ButterKnife.bind(this);
 
         setStatusBarColor();
+
+        volumePicker.setMinValue(1);
+        volumePicker.setMaxValue(10);
+        volumePicker.setValue(10);
 
         music.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -100,6 +107,7 @@ public class MainActivity extends Activity {
 
         else {
             gb.setTiempo(numberPicker.getValue());
+            gb.setVolume((float) (volumePicker.getValue() / 10.0));
             setStopedMode(false);
 
             if (music.isChecked())

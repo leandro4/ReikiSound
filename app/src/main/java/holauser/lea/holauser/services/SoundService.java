@@ -63,6 +63,7 @@ public class SoundService extends Service {
 
         if (globalVariable.isPlayMusic()) {
             repMusic.setLooping(true);
+            repMusic.setVolume(1, 1);
             repMusic.start();
         }
 
@@ -77,6 +78,8 @@ public class SoundService extends Service {
             }
         };
         countDownTimer.start();
+
+        rep.setVolume(globalVariable.getVolume(), globalVariable.getVolume());
 
         TimerTask timerTask = new TimerTask() {
             public void run() {
