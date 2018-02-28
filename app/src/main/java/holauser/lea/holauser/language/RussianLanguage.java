@@ -15,7 +15,7 @@ public class RussianLanguage extends LanguageStrategy {
         values.put("donate_title", "Благодарю Вас за использование Reiki Sound!");
         values.put("donate_subtitle", "Reiki Sound бесплатна и не содержит рекламы!");
         values.put("donate_body", "Будет очень полезна для нас, если Вы сможете помочь нашей команде в обслуживании и улучшении обслуживания всех членов сообщества Рэйки.");
-        values.put("donate_button", "Пожерствовать");
+        values.put("donate_button", "Пожертвовать");
         values.put("donate_thanks", "Большое спасибо Вам за Вашу помощь!");
         values.put("donate_button_not", "Нет, спасибо");
         values.put("donate_title_choose", "Спасибо за пожертвование на Reiki Sound");
@@ -31,6 +31,6 @@ public class RussianLanguage extends LanguageStrategy {
         values.put("remaining", "Осталось времени:");
         values.put("time_title", "Время (минуты):");
         values.put("enable_music", "Включить музыку");
-        values.put("tv_volume", "объем: ");
+        values.put("tv_volume", "Громкость: ");
     }
 }
