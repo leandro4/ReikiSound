@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Reiki Sound</string>
+
+        <string name="app_name">Reiki Sound</string>
+        <string name="donate_title">Благодарю Вас за использование Reiki Sound!</string>
+        <string name="donate_subtitle">Reiki Sound бесплатна и не содержит рекламы!</string>
+        <string name="donate_body">Будет очень полезна для нас, если Вы сможете помочь нашей команде в обслуживании и улучшении обслуживания всех членов сообщества Рэйки.</string>
+        <string name="donate_button">Пожерствовать</string>
+        <string name="donate_thanks">Большое спасибо Вам за Вашу помощь!</string>
+        <string name="donate_button_not">Нет, спасибо</string>
+        <string name="donate_title_choose">Спасибо за пожертвование на Reiki Sound</string>
+        <string name="donate_subtitle_choose">Какую сумму Вы желаете пожертвовать?</string>
+        <string name="selected_audio">Выбрать Аудио</string>
+        <string name="selected_audio_body">Извините, но ваш аудио файл не воспроизводится. Пожалуйста, выберите другой.</string>
+        <string name="select_audio_title">Выбрать музыку</string>
+        <string name="select_audio_body">Выбрать музыку с устройства или использовать встроенную музыку Reiki Sound?</string>
+        <string name="select_audio_select">Выбрать</string>
+        <string name="select_audio_default">По умолчанию</string>
+        <string name="music_selected">Музыка выбрана</string>
+        <string name="service_subtitle">Таймер работает...</string>
+        <string name="remaining">Осталось времени:</string>
+        <string name="time_title">Время (минуты):</string>
+        <string name="enable_music">Включить музыку</string>
+
 </resources>

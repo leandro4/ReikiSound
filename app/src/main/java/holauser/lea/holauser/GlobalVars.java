@@ -2,6 +2,9 @@ package holauser.lea.holauser;
 import android.app.Application;
 import android.net.Uri;
 
+import holauser.lea.holauser.language.EnglishLanguage;
+import holauser.lea.holauser.language.LanguageStrategy;
+
 public class GlobalVars extends Application {
     private int audio = R.raw.cuenco;
     private int tiempo = 1;
@@ -9,6 +12,9 @@ public class GlobalVars extends Application {
     private boolean playMusic = false;
     private Uri musicToPlay = null;
     private float volume = 1f;
+
+    public LanguageStrategy languageStrategy = new EnglishLanguage();
+    public boolean wasTranslated = false;
 
     public boolean isPlayMusic() {
         return playMusic;

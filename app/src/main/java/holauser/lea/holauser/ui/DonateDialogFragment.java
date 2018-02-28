@@ -11,10 +11,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import holauser.lea.holauser.GlobalVars;
 import holauser.lea.holauser.R;
+import holauser.lea.holauser.language.LanguageStrategy;
 
 /**
  * Created by leandro on 6/2/18.
@@ -36,7 +40,20 @@ public class DonateDialogFragment extends DialogFragment {
             e.printStackTrace();
         }
 
+        if (((GlobalVars) activity.getApplicationContext()).wasTranslated)
+            translateDialog(view);
+
         return view;
+    }
+
+    private void translateDialog(View v) {
+        LanguageStrategy tranlator = ((GlobalVars) activity.getApplicationContext()).languageStrategy;
+        ((TextView) v.findViewById(R.id.tvTitle)).setText(tranlator.getString("donate_title"));
+        ((TextView) v.findViewById(R.id.tvSubtitle)).setText(tranlator.getString("donate_subtitle"));
+        ((TextView) v.findViewById(R.id.tvBody)).setText(tranlator.getString("donate_body"));
+        ((TextView) v.findViewById(R.id.tvThanks)).setText(tranlator.getString("donate_thanks"));
+        ((TextView) v.findViewById(R.id.btn_no)).setText(tranlator.getString("donate_button_not"));
+        ((Button) v.findViewById(R.id.btn_ok)).setText(tranlator.getString("donate_button"));
     }
 
     public void setActivity(Activity activity) {

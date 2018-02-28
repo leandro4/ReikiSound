@@ -67,10 +67,13 @@ public class SoundService extends Service {
             repMusic.start();
         }
 
+        final String remaining = globalVariable.wasTranslated ? globalVariable.languageStrategy.getString("remaining") :
+                getString(R.string.remaining);
+
         countDownTimer = new CountDownTimer(tiempoEspera, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                sendResult(getString(R.string.remaining), millisUntilFinished / 1000 + "s");
+                sendResult(remaining, millisUntilFinished / 1000 + "s");
             }
 
             public void onFinish() {
@@ -112,14 +115,21 @@ public class SoundService extends Service {
     }
 
     private void makeNotification(Context context, String time) {
+        String title = context.getString(R.string.service_subtitle);
+        String contentTitle = context.getString(R.string.remaining);
+        if (((GlobalVars) getApplicationContext()).wasTranslated) {
+            title = ((GlobalVars) getApplicationContext()).languageStrategy.getString("service_subtitle");
+            contentTitle = ((GlobalVars) getApplicationContext()).languageStrategy.getString("remaining");
+        }
+
         Intent intent = new Intent(context, MainActivity.class);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification.Builder builder = new Notification.Builder(context)
-                .setSubText(context.getString(R.string.service_subtitle))
-                .setContentTitle(context.getString(R.string.remaining))
+                .setSubText(title)
+                .setContentTitle(contentTitle)
                 .setContentText(time)
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.reiki)

@@ -13,13 +13,19 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -27,6 +33,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import holauser.lea.holauser.GlobalVars;
 import holauser.lea.holauser.R;
+import holauser.lea.holauser.language.EnglishLanguage;
+import holauser.lea.holauser.language.FrenchLanguage;
+import holauser.lea.holauser.language.ItalianLanguage;
+import holauser.lea.holauser.language.LanguageStrategy;
+import holauser.lea.holauser.language.PortugeseLanguage;
+import holauser.lea.holauser.language.RussianLanguage;
+import holauser.lea.holauser.language.SpanishLanguage;
 import holauser.lea.holauser.services.SoundService;
 import holauser.lea.holauser.ui.custom.NumberPickerView;
 import holauser.lea.holauser.util.Animations;
@@ -50,6 +63,9 @@ public class MainActivity extends Activity {
     CheckBox music;
     @BindView(R.id.tvMusic)
     TextView tvMusicName;
+
+    @BindView(R.id.languageSp)
+    ImageView languageSp;
 
     BroadcastReceiver receiver;
 
@@ -92,6 +108,49 @@ public class MainActivity extends Activity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         }
+    }
+
+    @OnClick(R.id.languageSp)
+    public void languageClick(View v) {
+        PopupMenu popup = new PopupMenu(this,v);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.en:
+                        ((GlobalVars) getApplicationContext()).languageStrategy = new EnglishLanguage();
+                        languageSp.setImageResource(R.drawable.en);
+                        break;
+                    case R.id.sp:
+                        ((GlobalVars) getApplicationContext()).languageStrategy = new SpanishLanguage();
+                        languageSp.setImageResource(R.drawable.sp);
+                        break;
+                    case R.id.br:
+                        ((GlobalVars) getApplicationContext()).languageStrategy = new PortugeseLanguage();
+                        languageSp.setImageResource(R.drawable.br);
+                        break;
+                    case R.id.it:
+                        ((GlobalVars) getApplicationContext()).languageStrategy = new ItalianLanguage();
+                        languageSp.setImageResource(R.drawable.it);
+                        break;
+                    case R.id.fr:
+                        ((GlobalVars) getApplicationContext()).languageStrategy = new FrenchLanguage();
+                        languageSp.setImageResource(R.drawable.fr);
+                        break;
+                    case R.id.ru:
+                        ((GlobalVars) getApplicationContext()).languageStrategy = new RussianLanguage();
+                        languageSp.setImageResource(R.drawable.ru);
+                        break;
+                    default: break;
+                }
+                translateApp();
+                return true;
+            }
+        });
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.language_menu, popup.getMenu());
+        popup.show();
     }
 
     @OnClick (R.id.btn_play)
@@ -163,9 +222,16 @@ public class MainActivity extends Activity {
 
             Uri uri = data.getData();
             if (MediaPlayer.create(this, uri) == null) {
+
+                LanguageStrategy translator = ((GlobalVars) getApplicationContext()).languageStrategy;
+                String title = ((GlobalVars) getApplicationContext()).wasTranslated ? translator.getString("selected_audio") :
+                        getString(R.string.selected_audio);
+                String message = ((GlobalVars) getApplicationContext()).wasTranslated ? translator.getString("selected_audio_body") :
+                        getString(R.string.selected_audio_body);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(getString(R.string.selected_audio));
-                builder.setMessage(getString(R.string.selected_audio_body));
+                builder.setTitle(title);
+                builder.setMessage(message);
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -183,17 +249,26 @@ public class MainActivity extends Activity {
     }
 
     private void showSelectAudioDialog() {
+        LanguageStrategy translator = ((GlobalVars) getApplicationContext()).languageStrategy;
+        String title = ((GlobalVars) getApplicationContext()).wasTranslated ? translator.getString("select_audio_title") :
+                getString(R.string.select_audio_title);
+        String message = ((GlobalVars) getApplicationContext()).wasTranslated ? translator.getString("select_audio_body") :
+                getString(R.string.select_audio_body);
+        String positiveBtn = ((GlobalVars) getApplicationContext()).wasTranslated ? translator.getString("select_audio_select") :
+                getString(R.string.select_audio_select);
+        String defaultBtn = ((GlobalVars) getApplicationContext()).wasTranslated ? translator.getString("select_audio_default") :
+                getString(R.string.select_audio_default);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.select_audio_title));
-        builder.setMessage(getString(R.string.select_audio_body));
-        builder.setPositiveButton(getString(R.string.select_audio_select), new DialogInterface.OnClickListener() {
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(positiveBtn, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 selectAudio();
             }
         });
-        builder.setNegativeButton(getString(R.string.select_audio_default), new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(defaultBtn, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 GlobalVars gb = (GlobalVars)getApplicationContext();
@@ -209,5 +284,17 @@ public class MainActivity extends Activity {
         intent_upload.setType("audio/*");
         intent_upload.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent_upload,AUDIO_SELECTION);
+    }
+
+    private void translateApp() {
+        ((GlobalVars) getApplicationContext()).wasTranslated = true;
+        LanguageStrategy translator = ((GlobalVars) getApplicationContext()).languageStrategy;
+
+        ((TextView) findViewById(R.id.cuadro_lapso)).setText(translator.getString("time_title"));
+        ((TextView) findViewById(R.id.tv_volume)).setText(translator.getString("tv_volume"));
+        chronometer.setText(translator.getString("remaining"));
+        music.setText(translator.getString("enable_music"));
+        ((Button) findViewById(R.id.btn_donate)).setText(translator.getString("donate_button"));
+
     }
 }

@@ -1,25 +1,28 @@
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#41ccff"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<!--<ScrollView android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="#41ccff"-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android">-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:id="@+id/fondo"
-        android:orientation="vertical"
-        android:keepScreenOn="true"
-        android:touchscreenBlocksFocus="false">
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#41ccff"
+    android:id="@+id/fondo"
+    android:orientation="vertical"
+    android:keepScreenOn="true"
+    android:touchscreenBlocksFocus="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <ImageView
             android:id="@+id/imageView"
+            android:layout_weight="5"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:src="@drawable/reiki" />
 
         <LinearLayout
             android:id="@+id/rl_content_select"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
@@ -32,10 +35,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/cuadro_lapso"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/time_title"
-                    android:id="@+id/cuadro_lapso"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:layout_gravity="center"/>
@@ -60,6 +63,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_volume"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Volume:"
@@ -105,8 +109,9 @@
         </LinearLayout>
 
         <TextView
-            android:text="@string/remaining"
             android:id="@+id/chronometer"
+            android:text="@string/remaining"
+            android:layout_weight="1"
             android:visibility="gone"
             android:layout_gravity="center"
             android:gravity="center"
@@ -117,6 +122,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
@@ -143,8 +149,16 @@
                 android:layout_marginLeft="16dp"
                 android:layout_gravity="center"/>
 
+            <ImageView
+                android:id="@+id/languageSp"
+                android:src="@drawable/en"
+                android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
         </LinearLayout>
 
     </LinearLayout>
 
-</ScrollView>
+<!--</ScrollView>-->

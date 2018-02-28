@@ -14,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tvTitle"
             android:text="@string/donate_title"
             android:layout_gravity="center"
             android:textSize="18sp"
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tvSubtitle"
             android:text="@string/donate_subtitle"
             android:textSize="15sp"
             android:textColor="#41ccff"
@@ -34,6 +36,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tvBody"
             android:text="@string/donate_body"
             android:gravity="center"
             android:layout_margin="16dp"
@@ -41,6 +44,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tvThanks"
             android:text="@string/donate_thanks"
             android:layout_gravity="center"
             android:layout_margin="16dp"

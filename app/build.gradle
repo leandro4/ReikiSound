@@ -8,8 +8,8 @@ android {
         applicationId "holauser.lea.holauser"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 13
-        versionName "5.0"
+        versionCode 14
+        versionName "5.1"
     }
     buildTypes {
         release {
