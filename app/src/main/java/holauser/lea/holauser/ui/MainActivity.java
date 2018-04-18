@@ -112,7 +112,7 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.languageSp)
     public void languageClick(View v) {
-        PopupMenu popup = new PopupMenu(this,v);
+        PopupMenu popup = new PopupMenu(this, v);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

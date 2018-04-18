@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "holauser.lea.holauser"
@@ -30,11 +30,11 @@ dependencies {
     implementation 'com.android.support:percent:25.4.0'
 
     implementation 'com.jakewharton:butterknife:8.8.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-    compile 'com.daimajia.easing:library:2.0@aar'
-    compile 'com.daimajia.androidanimations:library:2.3@aar'
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
 
 //    implementation 'com.paypal.sdk:paypal-android-sdk:2.14.1'
 //    implementation files('libs/paypal_mpl_sdk.jar')
