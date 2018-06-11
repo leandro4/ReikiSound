@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/ivLess"
         android:layout_marginLeft="10dp"
-        android:background="@drawable/circle_white"
+        android:layout_marginStart="10dp"
         android:src="@drawable/ic_less"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/tvCount"
-        android:textColor="#ffffff"
+        android:textColor="@color/text_screen"
         android:textSize="26sp"
         android:textStyle="bold"
         android:text="3"
@@ -26,7 +26,7 @@
     <ImageView
         android:id="@+id/ivMore"
         android:layout_marginRight="10dp"
-        android:background="@drawable/circle_white"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/ic_add"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"

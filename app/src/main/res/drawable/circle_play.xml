@@ -3,6 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval" >
 
-    <solid android:color="#ffb020" />
+    <solid android:color="#CCffb020" />
 
 </shape>
