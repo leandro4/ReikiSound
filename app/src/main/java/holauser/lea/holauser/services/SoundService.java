@@ -11,6 +11,8 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ public class SoundService extends Service {
     Timer timer = new Timer();
 
     public static final int NOTIFICATION_ID = 1414;
+    public static final String CHANNEL_ID = "default_channel";
 
     CountDownTimer countDownTimer;
 
@@ -127,26 +130,43 @@ public class SoundService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification.Builder builder = new Notification.Builder(context)
-                .setSubText(title)
-                .setContentTitle(contentTitle)
-                .setContentText(time)
-                .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.reiki)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon));
 
-        Notification n;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setSubText(title)
+                    .setContentTitle(contentTitle)
+                    .setContentText(time)
+                    .setContentIntent(pendingIntent)
+                    .setSmallIcon(R.drawable.reiki)
+                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon));
 
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN) {
-            n = builder.build();
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            notificationManager.notify(NOTIFICATION_ID, builder.build());
+
         } else {
-            n = builder.getNotification();
+            Notification.Builder builder = new Notification.Builder(context)
+                    .setSubText(title)
+                    .setContentTitle(contentTitle)
+                    .setContentText(time)
+                    .setContentIntent(pendingIntent)
+                    .setSmallIcon(R.drawable.reiki)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon));
+
+            Notification n;
+
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN) {
+                n = builder.build();
+            } else {
+                n = builder.getNotification();
+            }
+
+            n.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.notify(NOTIFICATION_ID, n);
         }
-
-        n.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(NOTIFICATION_ID, n);
     }
 
     @Override
