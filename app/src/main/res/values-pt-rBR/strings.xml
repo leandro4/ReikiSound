@@ -16,7 +16,7 @@
     <string name="selected_audio">Áudio selecionado</string>
     <string name="selected_audio_body">Lamentamos, mas o item selecionado não pode ser jogado, tente outro áudio ou altere o formato.</string>
     <string name="music_selected">Música selecionada</string>
-    <string name="service_subtitle">Cronômetro executando ...</string>
+    <string name="service_subtitle">Cronômetro executando&#8230;</string>
     <string name="remaining">Tempo restante:</string>
     <string name="time_title">Tempo (minutos):</string>
     <string name="enable_music">Ativar música</string>

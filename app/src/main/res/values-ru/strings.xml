@@ -17,7 +17,7 @@
         <string name="select_audio_select">Выбрать</string>
         <string name="select_audio_default">По умолчанию</string>
         <string name="music_selected">Музыка выбрана</string>
-        <string name="service_subtitle">Таймер работает...</string>
+        <string name="service_subtitle">Таймер работает&#8230;</string>
         <string name="remaining">Осталось времени:</string>
         <string name="time_title">Время (минуты):</string>
         <string name="enable_music">Включить музыку</string>

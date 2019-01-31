@@ -136,6 +136,7 @@
         android:background="@color/white"
         android:text="@string/donate_button"
         android:textAllCaps="false"
+        android:visibility="gone"
         android:textColor="@color/colorAccent"
         android:fontFamily="@font/open_sans_condensed_bold"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -23,7 +23,7 @@
 
     <string name="music_selected">Música seleccionada</string>
 
-    <string name="service_subtitle">Cronómetro corriendo...</string>
+    <string name="service_subtitle">Cronómetro corriendo&#8230;</string>
 
     <string name="time_title">Tiempo (minutos):</string>
     <string name="enable_music">Activar música</string>

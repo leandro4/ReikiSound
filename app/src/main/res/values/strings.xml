@@ -16,7 +16,7 @@
     <string name="select_audio_select">Select</string>
     <string name="select_audio_default">Use default</string>
     <string name="music_selected">Music selected</string>
-    <string name="service_subtitle">Timer running...</string>
+    <string name="service_subtitle">Timer running&#8230;</string>
     <string name="remaining">Time left:</string>
     <string name="time_title">Time (minutes):</string>
     <string name="enable_music">Enable music</string>
