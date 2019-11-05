@@ -76,7 +76,12 @@ public class SoundService extends Service {
         countDownTimer = new CountDownTimer(tiempoEspera, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                sendResult(remaining, millisUntilFinished / 1000 + "s");
+                long time = millisUntilFinished / 1000;
+                String min = String.valueOf(time / 60);
+                String seg = String.valueOf(time % 60);
+                if (min.length() == 1) min = "0" + min;
+                if (seg.length() == 1) seg = "0" + seg;
+                sendResult(remaining, String.format("%s:%s", min, seg));
             }
 
             public void onFinish() {

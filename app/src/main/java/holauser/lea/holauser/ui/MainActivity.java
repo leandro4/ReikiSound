@@ -70,6 +70,7 @@ public class MainActivity extends Activity {
     BroadcastReceiver receiver;
 
     public static final int AUDIO_SELECTION = 1000;
+    String link = "https://sites.google.com/view/reikisound";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,13 +186,11 @@ public class MainActivity extends Activity {
         btnPlay.setImageResource(stoped ? R.drawable.ic_play : R.drawable.ic_stop);
     }
 
-    @OnClick (R.id.btn_donate)
+    @OnClick (R.id.btnPage)
     public void onDonateClick(View v) {
         Animations.animateScale(v);
-
-        DonateDialogFragment dialog = new DonateDialogFragment();
-        dialog.setActivity(this);
-        dialog.show(getFragmentManager(), "donate");
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        startActivity(intent);
     }
 
     @Override
@@ -294,7 +293,5 @@ public class MainActivity extends Activity {
         ((TextView) findViewById(R.id.tv_volume)).setText(translator.getString("tv_volume"));
         chronometer.setText(translator.getString("remaining"));
         music.setText(translator.getString("enable_music"));
-        ((Button) findViewById(R.id.btn_donate)).setText(translator.getString("donate_button"));
-
     }
 }

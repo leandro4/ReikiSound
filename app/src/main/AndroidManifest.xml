@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="holauser.lea.holauser">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".GlobalVars"
         android:allowBackup="true"
