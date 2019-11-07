@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".services.SoundService" />
+        <service android:name=".services.PlayerService" />
 
     </application>
 

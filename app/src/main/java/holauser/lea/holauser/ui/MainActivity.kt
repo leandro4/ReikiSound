@@ -18,7 +18,7 @@ import android.view.WindowManager
 
 import holauser.lea.holauser.GlobalVars
 import holauser.lea.holauser.R
-import holauser.lea.holauser.services.SoundService
+import holauser.lea.holauser.services.PlayerService
 import holauser.lea.holauser.util.Animations
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -45,7 +45,7 @@ class MainActivity : Activity() {
 
         receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                val time = intent.getStringExtra(SoundService.REIKI_MESSAGE)
+                val time = intent.getStringExtra(PlayerService.REIKI_MESSAGE)
                 chronometer!!.text = time
             }
         }
@@ -62,7 +62,7 @@ class MainActivity : Activity() {
         val gb = applicationContext as GlobalVars
 
         if (gb.isPlaying) {
-            stopService(Intent(this@MainActivity, SoundService::class.java))
+            stopService(Intent(this@MainActivity, PlayerService::class.java))
             setStopMode(true)
         } else {
             gb.tiempo = numberPicker!!.value
@@ -72,7 +72,7 @@ class MainActivity : Activity() {
             gb.isPlayMusic = cb_enable_music.isChecked
 
             registerBroadcastReceiver(true)
-            startService(Intent(this@MainActivity, SoundService::class.java))
+            startService(Intent(this@MainActivity, PlayerService::class.java))
         }
     }
 
@@ -101,7 +101,7 @@ class MainActivity : Activity() {
 
     private fun registerBroadcastReceiver(register: Boolean) {
         if (register) {
-            LocalBroadcastManager.getInstance(this).registerReceiver(receiver, IntentFilter(SoundService.BROADCAST_REIKI))
+            LocalBroadcastManager.getInstance(this).registerReceiver(receiver, IntentFilter(PlayerService.BROADCAST_REIKI))
         } else
             LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver)
     }

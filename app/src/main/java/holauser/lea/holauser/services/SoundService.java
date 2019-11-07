@@ -52,10 +52,10 @@ public class SoundService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intenc, int flags, int idArranque) {
+    public int onStartCommand(Intent intent, int flags, int id) {
         final GlobalVars globalVariable = (GlobalVars) getApplicationContext();
         rep = MediaPlayer.create(this, globalVariable.getSonido());
-        int tiempoEspera = 1000 * globalVariable.getTiempo() * 60;
+        int frequency = 1000 * globalVariable.getTiempo() * 60;
         timer.purge();
 
         if (globalVariable.getMusicToPlay() == null)
@@ -71,7 +71,7 @@ public class SoundService extends Service {
 
         final String remaining = getString(R.string.remaining);
 
-        countDownTimer = new CountDownTimer(tiempoEspera, 1000) {
+        countDownTimer = new CountDownTimer(frequency, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 long time = millisUntilFinished / 1000;
@@ -97,7 +97,7 @@ public class SoundService extends Service {
 
             }
         };
-        timer.scheduleAtFixedRate(timerTask, 0, tiempoEspera);
+        timer.scheduleAtFixedRate(timerTask, 0, frequency);
 
         return START_STICKY;
     }
