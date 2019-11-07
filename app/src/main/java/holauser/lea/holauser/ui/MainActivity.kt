@@ -15,6 +15,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.appcompat.app.AlertDialog
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 
 import holauser.lea.holauser.GlobalVars
 import holauser.lea.holauser.R
@@ -23,10 +24,7 @@ import holauser.lea.holauser.util.Animations
 import holauser.lea.holauser.util.DataManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : Activity() {
-
-    private lateinit var receiver: BroadcastReceiver
-    private var link = "https://sites.google.com/view/reikisound"
+class MainActivity : BaseReceiverActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +64,7 @@ class MainActivity : Activity() {
             gb.volume = (volumePicker!!.value / 10.0).toFloat()
             setStopMode(false)
             DataManager.setFrequency(this, gb.tiempo)
-
             gb.isPlayMusic = cb_enable_music.isChecked
-
-            registerBroadcastReceiver(true)
             startService(Intent(this@MainActivity, PlayerService::class.java))
         }
     }
@@ -87,70 +82,27 @@ class MainActivity : Activity() {
         startActivity(intent)
     }
 
-    public override fun onStop() {
-        super.onStop()
-        registerBroadcastReceiver(false)
-    }
-
-    public override fun onResume() {
+    override fun onResume() {
         super.onResume()
-        registerBroadcastReceiver(true)
         setStopMode(!(applicationContext as GlobalVars).isPlaying)
     }
 
-    private fun registerBroadcastReceiver(register: Boolean) {
-        if (register) {
-            LocalBroadcastManager.getInstance(this).registerReceiver(receiver, IntentFilter(PlayerService.BROADCAST_REIKI))
-        } else
-            LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver)
-    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (requestCode == AUDIO_SELECTION && resultCode == Activity.RESULT_OK) {
-
-            val uri = data.data
+            val uri = data?.data
             if (MediaPlayer.create(this, uri) == null) {
-
-                val title = getString(R.string.selected_audio)
-                val message = getString(R.string.selected_audio_body)
-
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle(title)
-                builder.setMessage(message)
-                builder.setPositiveButton("Ok") { _, _ -> selectAudio() }
-                builder.show()
+                AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.selected_audio)).setMessage(getString(R.string.selected_audio_body))
+                        .setPositiveButton("Ok") { _, _ -> selectAudio() }
+                        .show()
             } else {
-                val gb = applicationContext as GlobalVars
-                gb.musicToPlay = uri
+                (applicationContext as GlobalVars).musicToPlay = uri
             }
         } else if (requestCode == AUDIO_SELECTION && resultCode == Activity.RESULT_CANCELED) {
             cb_enable_music.isChecked = false
         }
-    }
-
-    private fun showSelectAudioDialog() {
-        val title = getString(R.string.select_audio_title)
-        val message = getString(R.string.select_audio_body)
-        val positiveBtn = getString(R.string.select_audio_select)
-        val defaultBtn = getString(R.string.select_audio_default)
-
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(title)
-        builder.setMessage(message)
-        builder.setPositiveButton(positiveBtn) { _, _ -> selectAudio() }
-        builder.setNegativeButton(defaultBtn) { _, _ ->
-            val gb = applicationContext as GlobalVars
-            gb.musicToPlay = null
-        }
-        builder.setCancelable(false)
-        builder.show()
-    }
-
-    private fun selectAudio() {
-        val intentUpload = Intent()
-        intentUpload.type = "audio/*"
-        intentUpload.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intentUpload, AUDIO_SELECTION)
     }
 
     companion object {
