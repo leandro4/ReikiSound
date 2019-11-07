@@ -1,23 +1,20 @@
-<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@drawable/gradient_bg"
     android:id="@+id/fondo"
+    android:padding="16dp"
+    android:background="@color/white"
     android:orientation="vertical"
     android:keepScreenOn="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:src="@drawable/reiki"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHeight_percent="0.13"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:id="@+id/rl_content_select"
@@ -69,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Volume:"
+                android:text="@string/volume_title"
                 android:textColor="@color/text_screen"
                 android:fontFamily="@font/open_sans_condensed_bold"
                 android:textSize="20sp" />
@@ -82,34 +79,17 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/cb_enable_music"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/cb_enable_music"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:buttonTint="@color/text_screen"
-                android:fontFamily="@font/open_sans_condensed_bold"
-                android:checked="false"
-                android:text="@string/enable_music"
-                android:textColor="@color/text_screen"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvMusic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:fontFamily="@font/open_sans_condensed_bold"
-                android:text="Reiki Sound Music"
-                android:textColor="@color/text_screen"
-                android:visibility="gone" />
-
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:buttonTint="@color/text_screen"
+            android:fontFamily="@font/open_sans_condensed_bold"
+            android:checked="false"
+            android:text="@string/enable_music"
+            android:textColor="@color/text_screen"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -142,17 +122,6 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
-        android:id="@+id/languageSp"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/en"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
         android:id="@+id/btn_play"
         android:layout_width="45dp"
         android:layout_height="45dp"
@@ -163,4 +132,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

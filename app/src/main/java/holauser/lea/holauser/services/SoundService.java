@@ -11,10 +11,9 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -70,8 +69,7 @@ public class SoundService extends Service {
             repMusic.start();
         }
 
-        final String remaining = globalVariable.wasTranslated ? globalVariable.languageStrategy.getString("remaining") :
-                getString(R.string.remaining);
+        final String remaining = getString(R.string.remaining);
 
         countDownTimer = new CountDownTimer(tiempoEspera, 1000) {
 
@@ -125,11 +123,6 @@ public class SoundService extends Service {
     private void makeNotification(Context context, String time) {
         String title = context.getString(R.string.service_subtitle);
         String contentTitle = context.getString(R.string.remaining);
-        if (((GlobalVars) getApplicationContext()).wasTranslated) {
-            title = ((GlobalVars) getApplicationContext()).languageStrategy.getString("service_subtitle");
-            contentTitle = ((GlobalVars) getApplicationContext()).languageStrategy.getString("remaining");
-        }
-
         Intent intent = new Intent(context, MainActivity.class);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,

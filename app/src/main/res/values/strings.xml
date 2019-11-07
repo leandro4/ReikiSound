@@ -20,5 +20,6 @@
     <string name="remaining">Time left:</string>
     <string name="time_title">Time (minutes):</string>
     <string name="enable_music">Enable music</string>
+    <string name="volume_title">Volume:</string>
 
 </resources>
