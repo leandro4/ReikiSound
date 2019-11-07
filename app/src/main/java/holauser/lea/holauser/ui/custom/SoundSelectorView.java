@@ -1,6 +1,5 @@
 package holauser.lea.holauser.ui.custom;
 
-import android.animation.Animator;
 import android.content.Context;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
@@ -12,10 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import holauser.lea.holauser.GlobalVars;
 import holauser.lea.holauser.R;
 import holauser.lea.holauser.util.Animations;
@@ -26,8 +21,7 @@ import holauser.lea.holauser.util.Animations;
 
 public class SoundSelectorView extends RelativeLayout {
 
-    @BindView(R.id.ivSelected)
-    ImageView ivSelected;
+    private ImageView ivSelected;
 
     private int soundSelected = 0;
 
@@ -53,14 +47,13 @@ public class SoundSelectorView extends RelativeLayout {
     }
 
     public void init(AttributeSet attributeSet) {
-
         View v = LayoutInflater.from(getContext()).inflate(R.layout.view_sound_selector, this);
-        ButterKnife.bind(v);
-
+        ivSelected = v.findViewById(R.id.ivSelected);
+        ivSelected.setOnClickListener(this::onBackClick);
+        v.findViewById(R.id.ivNext).setOnClickListener(this::onNextClick);
     }
 
-    @OnClick(R.id.ivBack)
-    public void onBackClick(View v) {
+    private void onBackClick(View v) {
         Animations.animateScale(v);
 
         final GlobalVars globalVariable = (GlobalVars) getContext().getApplicationContext();
@@ -82,8 +75,7 @@ public class SoundSelectorView extends RelativeLayout {
         }
     }
 
-    @OnClick(R.id.ivNext)
-    public void onNextClick(View v) {
+    private void onNextClick(View v) {
         Animations.animateScale(v);
 
         final GlobalVars globalVariable = (GlobalVars) getContext().getApplicationContext();
@@ -106,12 +98,9 @@ public class SoundSelectorView extends RelativeLayout {
     }
 
     private void animateImageSelected(final int image, final boolean leftPressed) {
-        YoYo.with(leftPressed ? Techniques.SlideOutRight : Techniques.SlideOutLeft).duration(100).onEnd(new YoYo.AnimatorCallback() {
-            @Override
-            public void call(Animator animator) {
-                ivSelected.setImageResource(image);
-                YoYo.with(leftPressed ? Techniques.SlideInLeft : Techniques.SlideInRight).duration(100).playOn(ivSelected);
-            }
+        YoYo.with(leftPressed ? Techniques.SlideOutRight : Techniques.SlideOutLeft).duration(100).onEnd(animator -> {
+            ivSelected.setImageResource(image);
+            YoYo.with(leftPressed ? Techniques.SlideInLeft : Techniques.SlideInRight).duration(100).playOn(ivSelected);
         }).playOn(ivSelected);
     }
 }

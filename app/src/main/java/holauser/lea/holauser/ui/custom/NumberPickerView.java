@@ -8,10 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import holauser.lea.holauser.R;
 import holauser.lea.holauser.util.Animations;
 
@@ -21,9 +17,7 @@ import holauser.lea.holauser.util.Animations;
 
 public class NumberPickerView extends RelativeLayout {
 
-    @BindView(R.id.tvCount)
     TextView tvCount;
-
     private int maxValue = 60;
     private int minValue = 1;
 
@@ -49,12 +43,12 @@ public class NumberPickerView extends RelativeLayout {
     }
 
     public void init (AttributeSet attributeSet) {
-
         View v = LayoutInflater.from(getContext()).inflate(R.layout.view_number_picker, this);
-        ButterKnife.bind(v);
+        tvCount = v.findViewById(R.id.tvCount);
+        v.findViewById(R.id.ivLess).setOnClickListener(this::onLessClick);
+        v.findViewById(R.id.ivMore).setOnClickListener(this::onMoreClick);
     }
 
-    @OnClick(R.id.ivLess)
     public void onLessClick(View v) {
         Animations.animateScale(v);
 
@@ -65,7 +59,6 @@ public class NumberPickerView extends RelativeLayout {
         tvCount.setText(String.valueOf(count));
     }
 
-    @OnClick(R.id.ivMore)
     public void onMoreClick(View v) {
         Animations.animateScale(v);
 
