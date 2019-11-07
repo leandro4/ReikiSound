@@ -10,5 +10,6 @@
     <color name="white">#ffffff</color>
 
     <color name="text_screen">#afa9a3</color>
+    <color name="dark_screen">#000000</color>
 
 </resources>

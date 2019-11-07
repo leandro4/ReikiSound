@@ -20,6 +20,7 @@ import holauser.lea.holauser.GlobalVars
 import holauser.lea.holauser.R
 import holauser.lea.holauser.services.PlayerService
 import holauser.lea.holauser.util.Animations
+import holauser.lea.holauser.util.DataManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity() {
@@ -31,15 +32,9 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window = window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = ContextCompat.getColor(this, R.color.colorAccentExtraLigth)
-        }
-
         volumePicker.setMinValue(1)
         volumePicker.setMaxValue(10)
-        volumePicker.value = 10
+        volumePicker.value = 7
 
         cb_enable_music.setOnCheckedChangeListener { _, isChecked -> if (isChecked) showSelectAudioDialog() }
 
@@ -54,6 +49,8 @@ class MainActivity : Activity() {
 
         btn_play.setOnClickListener { onPlayClick() }
         btnPage.setOnClickListener { onDonateClick() }
+
+        numberPicker.value = DataManager.getFrequency(this)
     }
 
     private fun onPlayClick() {
@@ -68,6 +65,7 @@ class MainActivity : Activity() {
             gb.tiempo = numberPicker!!.value
             gb.volume = (volumePicker!!.value / 10.0).toFloat()
             setStopMode(false)
+            DataManager.setFrequency(this, gb.tiempo)
 
             gb.isPlayMusic = cb_enable_music.isChecked
 
@@ -79,6 +77,7 @@ class MainActivity : Activity() {
     private fun setStopMode(stop: Boolean) {
         rl_content_select.visibility = if (stop) View.VISIBLE else View.GONE
         chronometer!!.visibility = if (!stop) View.VISIBLE else View.GONE
+        root.setBackgroundColor(ContextCompat.getColor(this, if (stop) R.color.white else R.color.dark_screen))
         btn_play.setImageResource(if (stop) R.drawable.ic_play else R.drawable.ic_stop)
     }
 

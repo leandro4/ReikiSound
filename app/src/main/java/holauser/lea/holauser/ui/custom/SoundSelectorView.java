@@ -14,6 +14,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import holauser.lea.holauser.GlobalVars;
 import holauser.lea.holauser.R;
 import holauser.lea.holauser.util.Animations;
+import holauser.lea.holauser.util.DataManager;
 
 /**
  * Created by leandro on 20/2/18.
@@ -49,8 +50,21 @@ public class SoundSelectorView extends RelativeLayout {
     public void init(AttributeSet attributeSet) {
         View v = LayoutInflater.from(getContext()).inflate(R.layout.view_sound_selector, this);
         ivSelected = v.findViewById(R.id.ivSelected);
-        ivSelected.setOnClickListener(this::onBackClick);
         v.findViewById(R.id.ivNext).setOnClickListener(this::onNextClick);
+        v.findViewById(R.id.ivBack).setOnClickListener(this::onBackClick);
+
+        switch (DataManager.INSTANCE.getBell(getContext())) {
+            case 1:
+                soundSelected = 1;
+                ivSelected.setImageResource(R.drawable.triangle);
+                break;
+            case 2:
+                soundSelected = 2;
+                ivSelected.setImageResource(R.drawable.koshi);
+                break;
+            default:
+                break;
+        }
     }
 
     private void onBackClick(View v) {
@@ -73,6 +87,8 @@ public class SoundSelectorView extends RelativeLayout {
                 break;
             default: break;
         }
+
+        DataManager.INSTANCE.setBell(getContext(), soundSelected);
     }
 
     private void onNextClick(View v) {
@@ -95,6 +111,8 @@ public class SoundSelectorView extends RelativeLayout {
                 break;
             default: break;
         }
+
+        DataManager.INSTANCE.setBell(getContext(), soundSelected);
     }
 
     private void animateImageSelected(final int image, final boolean leftPressed) {

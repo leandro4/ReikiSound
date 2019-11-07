@@ -100,7 +100,7 @@
         android:gravity="center"
         android:visibility="gone"
         android:text="@string/remaining"
-        android:textColor="@color/text_screen"
+        android:textColor="@color/white"
         android:textSize="50sp"
         android:fontFamily="@font/open_sans_condensed_bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_play"
@@ -108,16 +108,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <Button
+    <TextView
         android:id="@+id/btnPage"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/white"
+        android:background="@drawable/btn_web_background"
         android:text="@string/donate_button"
-        android:textAllCaps="false"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/white"
         android:fontFamily="@font/open_sans_condensed_bold"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

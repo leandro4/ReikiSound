@@ -5,7 +5,7 @@ import android.net.Uri;
 
 public class GlobalVars extends Application {
     private int audio = R.raw.cuenco;
-    private int tiempo = 1;
+    private int tiempo = 3;
     private boolean isPlaying = false;
     private boolean playMusic = false;
     private Uri musicToPlay = null;

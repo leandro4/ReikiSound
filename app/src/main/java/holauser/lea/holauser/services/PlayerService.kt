@@ -15,7 +15,6 @@ class PlayerService: Service() {
     companion object {
         const val BROADCAST_REIKI = "broadcast_reiki"
         const val REIKI_MESSAGE = "reiki_message"
-        const val JOB_ID = 999
     }
 
     private val timer = Timer()
