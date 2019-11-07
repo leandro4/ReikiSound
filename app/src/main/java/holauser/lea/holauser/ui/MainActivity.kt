@@ -65,7 +65,7 @@ class MainActivity : BaseReceiverActivity() {
             setStopMode(false)
             DataManager.setFrequency(this, gb.tiempo)
             gb.isPlayMusic = cb_enable_music.isChecked
-            startService(Intent(this@MainActivity, PlayerService::class.java))
+            startService(Intent(this, PlayerService::class.java))
         }
     }
 

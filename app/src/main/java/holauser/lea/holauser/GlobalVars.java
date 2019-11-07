@@ -1,7 +1,10 @@
 package holauser.lea.holauser;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.net.Uri;
+import android.os.Build;
 
 public class GlobalVars extends Application {
     private int audio = R.raw.cuenco;
@@ -10,6 +13,22 @@ public class GlobalVars extends Application {
     private boolean playMusic = false;
     private Uri musicToPlay = null;
     private float volume = 1f;
+    public static final String CHANNEL_ID = "default_channel";
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        createNotificationChannel();
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(CHANNEL_ID, "PlayerChannel", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
+    }
 
     public boolean isPlayMusic() {
         return playMusic;

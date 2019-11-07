@@ -4,6 +4,7 @@
     package="holauser.lea.holauser">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".GlobalVars"
@@ -26,7 +27,10 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".services.PlayerService" />
+        <service android:name=".services.PlayerService"
+            android:exported="true"
+            android:enabled="true"
+            android:permission="android.permission.FOREGROUND_SERVICE"/>
 
     </application>
 

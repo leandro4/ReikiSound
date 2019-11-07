@@ -1,12 +1,16 @@
 package holauser.lea.holauser.services
 
+import android.app.Notification
 import android.app.Service
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import holauser.lea.holauser.GlobalVars
+import holauser.lea.holauser.GlobalVars.CHANNEL_ID
 import holauser.lea.holauser.R
 import java.util.*
 
@@ -15,6 +19,9 @@ class PlayerService: Service() {
     companion object {
         const val BROADCAST_REIKI = "broadcast_reiki"
         const val REIKI_MESSAGE = "reiki_message"
+
+        const val NOTIFY_ID = 1337
+        const val FOREGROUND_ID = 1338
     }
 
     private val timer = Timer()
@@ -23,27 +30,40 @@ class PlayerService: Service() {
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var broadcaster: LocalBroadcastManager
 
-    fun sendResult(title: String, time: String) {
-        val intent = Intent(SoundJobService.BROADCAST_REIKI)
-        intent.putExtra(SoundJobService.REIKI_MESSAGE, title + "\n" + time)
+    private fun sendResult(title: String, time: String) {
+        val intent = Intent(BROADCAST_REIKI)
+        intent.putExtra(REIKI_MESSAGE, title + "\n" + time)
         broadcaster.sendBroadcast(intent)
     }
 
     override fun onCreate() {
         super.onCreate()
         broadcaster = LocalBroadcastManager.getInstance(this)
+        startForeground(FOREGROUND_ID, buildForegroundNotification())
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, id: Int): Int {
+    private fun buildForegroundNotification(): Notification {
+        val b = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+        b.setOngoing(true)
+                .setSubText(getString(R.string.app_name))
+                .setSmallIcon(R.drawable.reiki)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.icon))
+        return b.build()
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        onStartSession()
+        return START_STICKY
+    }
+
+    private fun onStartSession() {
         val globalVariable = applicationContext as GlobalVars
         rep = MediaPlayer.create(this, globalVariable.sonido)
         val frequency = 1000 * globalVariable.tiempo * 60
         timer.purge()
 
-        if (globalVariable.musicToPlay == null)
-            repMusic = MediaPlayer.create(this, R.raw.relaxing1)
-        else
-            repMusic = MediaPlayer.create(this, globalVariable.musicToPlay)
+        repMusic = if (globalVariable.musicToPlay == null) MediaPlayer.create(this, R.raw.relaxing1)
+                    else MediaPlayer.create(this, globalVariable.musicToPlay)
 
         if (globalVariable.isPlayMusic) {
             repMusic?.isLooping = true
@@ -80,12 +100,11 @@ class PlayerService: Service() {
             }
         }
         timer.scheduleAtFixedRate(timerTask, 0, frequency.toLong())
-
-        return Service.START_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        stopForeground(true)
         timer.cancel()
         countDownTimer.cancel()
         (applicationContext as GlobalVars).isPlaying = false

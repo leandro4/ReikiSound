@@ -124,10 +124,7 @@ public class SoundService extends Service {
         String title = context.getString(R.string.service_subtitle);
         String contentTitle = context.getString(R.string.remaining);
         Intent intent = new Intent(context, MainActivity.class);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
