@@ -104,12 +104,16 @@ class PlayerService: Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        stopForeground(true)
-        timer.cancel()
-        countDownTimer.cancel()
-        (applicationContext as GlobalVars).isPlaying = false
-        repMusic?.stop()
-        repMusic?.release()
+        try {
+            stopForeground(true)
+            timer.cancel()
+            countDownTimer.cancel()
+            (applicationContext as GlobalVars).isPlaying = false
+            repMusic?.stop()
+            repMusic?.release()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onBind(intent: Intent?): IBinder? { return null }

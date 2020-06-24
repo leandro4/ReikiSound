@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "121806927623",
+    "firebase_url": "https://reiki-sound.firebaseio.com",
+    "project_id": "reiki-sound",
+    "storage_bucket": "reiki-sound.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121806927623:android:07ecb0eb4a6b4b9b08b7a2",
+        "android_client_info": {
+          "package_name": "holauser.lea.holauser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121806927623-dklbier3vl2jib7f9hd1jdbhp85jpl1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfBddRVxBvq5QmlQ5fqBTZ6ukpK4-eMXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121806927623-dklbier3vl2jib7f9hd1jdbhp85jpl1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

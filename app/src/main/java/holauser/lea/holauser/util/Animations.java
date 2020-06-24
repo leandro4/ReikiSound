@@ -11,10 +11,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by leandro on 20/2/18.
- */
-
 public class Animations {
 
     public static void animateScale(final View view) {

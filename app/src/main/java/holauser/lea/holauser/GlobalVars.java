@@ -6,7 +6,9 @@ import android.app.NotificationManager;
 import android.net.Uri;
 import android.os.Build;
 
-public class GlobalVars extends Application {
+import androidx.multidex.MultiDexApplication;
+
+public class GlobalVars extends MultiDexApplication {
     private int audio = R.raw.cuenco;
     private int tiempo = 3;
     private boolean isPlaying = false;
