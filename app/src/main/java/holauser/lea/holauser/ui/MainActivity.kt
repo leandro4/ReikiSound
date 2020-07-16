@@ -4,18 +4,13 @@ import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 
 import androidx.core.content.ContextCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.appcompat.app.AlertDialog
 import android.view.View
-import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 
 import holauser.lea.holauser.GlobalVars
 import holauser.lea.holauser.R

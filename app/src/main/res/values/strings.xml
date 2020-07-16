@@ -3,14 +3,14 @@
     <string name="app_name">Reiki Sound</string>
     <string name="donate_title">Thanks for use Reiki Sound!</string>
     <string name="donate_subtitle">Reiki Sound is free and has no advertisements!</string>
-    <string name="donate_body">It is very useful for us if you could help the team to mantenaince and improving the service for all reiki comunity.</string>
-    <string name="donate_button" translatable="false">ReikiSound web!</string>
+    <string name="donate_body">It is very useful for us if you could help the team to mantenaince and improving the service for all reiki community.</string>
+    <string name="donate_button" translatable="false">HELP Reiki Sound!</string>
     <string name="donate_thanks">Thank you very much for your help!</string>
     <string name="donate_button_not">No, thanks</string>
     <string name="donate_title_choose">Thanks for donate to Reiki Sound</string>
     <string name="donate_subtitle_choose">How much money would you like to donate?</string>
     <string name="selected_audio">Selected Audio</string>
-    <string name="selected_audio_body">Sorry but your audio file coul not be played. Please choose another one.</string>
+    <string name="selected_audio_body">Sorry but your audio file could not be played. Please choose another one.</string>
     <string name="select_audio_title">Select music</string>
     <string name="select_audio_body">Choose a song from my device or use Reiki Sound default music?</string>
     <string name="select_audio_select">Select</string>
@@ -20,6 +20,6 @@
     <string name="remaining">Time left:</string>
     <string name="time_title">Time (minutes):</string>
     <string name="enable_music">Enable music</string>
-    <string name="volume_title">Volume:</string>
+    <string name="volume_title" translatable="false">Volume:</string>
 
 </resources>
