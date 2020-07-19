@@ -76,17 +76,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
-        <CheckBox
-            android:id="@+id/cb_enable_music"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:buttonTint="@color/text_screen"
-            android:checked="false"
-            android:text="@string/enable_music"
-            android:textColor="@color/text_screen"
-            android:textSize="18sp" />
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

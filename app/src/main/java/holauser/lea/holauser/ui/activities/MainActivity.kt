@@ -10,6 +10,7 @@ import android.os.Bundle
 
 import androidx.appcompat.app.AlertDialog
 import android.view.View
+import android.widget.AdapterView
 
 import holauser.lea.holauser.ReikiSound
 import holauser.lea.holauser.services.PlayerService
@@ -29,8 +30,6 @@ class MainActivity : BaseReceiverActivity() {
         volumePicker.setMaxValue(10)
         volumePicker.value = 10
 
-        cb_enable_music.setOnCheckedChangeListener { _, isChecked -> if (isChecked) showSelectAudioDialog() }
-
         receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 val time = intent.getStringExtra(PlayerService.REIKI_MESSAGE)
@@ -49,6 +48,17 @@ class MainActivity : BaseReceiverActivity() {
     private fun initSpinner() {
         val adapter = ArrayAdapter<String>(this, R.layout.adapter_music_source_row, R.id.tvOption, resources.getStringArray(R.array.music_source))
         spMusicSource.adapter = adapter
+        spMusicSource.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                DataManager.setBackgroundMusicEnabled(this@MainActivity, p2 != 0)
+                when (p2) {
+                    1 -> selectAudio()
+                    2 -> (applicationContext as ReikiSound).musicToPlay = null
+                    else -> {}
+                }
+            }
+        }
     }
 
     private fun onPlayClick() {
@@ -59,7 +69,6 @@ class MainActivity : BaseReceiverActivity() {
             setModeOnUI(true)
             DataManager.setVolume(this, (volumePicker!!.value / 10.0f))
             DataManager.setFrequency(this, numberPicker!!.value)
-            DataManager.setBackgroundMusicEnabled(this, cb_enable_music.isChecked)
             startService(Intent(this, PlayerService::class.java))
         }
         DataManager.setModeOn(this, !DataManager.isModeOn(this))
@@ -98,7 +107,7 @@ class MainActivity : BaseReceiverActivity() {
                 (applicationContext as ReikiSound).musicToPlay = uri
             }
         } else if (requestCode == AUDIO_SELECTION && resultCode == Activity.RESULT_CANCELED) {
-            cb_enable_music.isChecked = false
+            spMusicSource.setSelection(0)
         }
     }
 

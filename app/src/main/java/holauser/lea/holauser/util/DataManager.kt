@@ -12,6 +12,7 @@ object DataManager {
     private val VOLUME = "VOLUME"
     private val MODE_ON = "MODE_ON"
     private val BACKGOURND_MUSIC_ENABLED = "BACKGOURND_MUSIC_ENABLED"
+    private val MUSIC_SELECTED = "MUSIC_SELECTED"
 
     fun getFrequency(context: Context): Int {
         val shared = SharedPreferencesEditor(context, PREFIX)
@@ -61,5 +62,15 @@ object DataManager {
     fun setBackgroundMusicEnabled(context: Context, enabled: Boolean) {
         val shared = SharedPreferencesEditor(context, PREFIX)
         shared.setValueForKey(BACKGOURND_MUSIC_ENABLED, enabled)
+    }
+
+    fun getMusicSelected(context: Context): String? {
+        val shared = SharedPreferencesEditor(context, PREFIX)
+        return shared.valueForKey(MUSIC_SELECTED, null)
+    }
+
+    fun setMusicSelected(context: Context, music: String) {
+        val shared = SharedPreferencesEditor(context, PREFIX)
+        shared.setValueForKey(MUSIC_SELECTED, music)
     }
 }

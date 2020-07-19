@@ -39,15 +39,4 @@ abstract class BaseReceiverActivity: AppCompatActivity() {
         intentUpload.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(intentUpload, MainActivity.AUDIO_SELECTION)
     }
-
-    protected fun showSelectAudioDialog() {
-        AlertDialog.Builder(this)
-                .setTitle(getString(R.string.select_audio_title)).setMessage(getString(R.string.select_audio_body))
-                .setPositiveButton(getString(R.string.select_audio_select)) { _, _ -> selectAudio() }
-                .setNegativeButton(getString(R.string.select_audio_default)) { _, _ ->
-                    val gb = applicationContext as ReikiSound
-                    gb.musicToPlay = null
-                }
-                .setCancelable(false).show()
-    }
 }
