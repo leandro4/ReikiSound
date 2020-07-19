@@ -17,7 +17,10 @@ import holauser.lea.holauser.services.PlayerService
 import holauser.lea.holauser.util.DataManager
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.ArrayAdapter
+import android.widget.SeekBar
 import holauser.lea.holauser.R
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 
 
 class MainActivity : BaseReceiverActivity() {
@@ -25,10 +28,6 @@ class MainActivity : BaseReceiverActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        volumePicker.setMinValue(1)
-        volumePicker.setMaxValue(10)
-        volumePicker.value = 10
 
         receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -43,6 +42,33 @@ class MainActivity : BaseReceiverActivity() {
         numberPicker.value = DataManager.getFrequency(this)
 
         initSpinner()
+        initSeekBarVol()
+    }
+
+    private fun initSeekBarVol() {
+        sbVolume.progress = DataManager.getVolume(this)
+        sbVolume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, progress: Int, fromUser: Boolean) {
+                p0?.let {
+                    if (progress < 10) it.progress = 10
+                    tvVolume.text = String.format("%d%%", it.progress)
+                    val constraintSet = ConstraintSet()
+                    constraintSet.clone(volumeContainer)
+                    val biasedValue = it.progress / 100.0f
+                    constraintSet.setHorizontalBias(R.id.flVolumeDialog, biasedValue)
+                    constraintSet.applyTo(volumeContainer)
+                }
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+                flVolumeDialog.visibility = View.VISIBLE
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                flVolumeDialog.visibility = View.INVISIBLE
+                DataManager.setVolume(this@MainActivity, p0?.progress ?: 50)
+            }
+        })
     }
 
     private fun initSpinner() {
@@ -67,7 +93,6 @@ class MainActivity : BaseReceiverActivity() {
             stopService(Intent(this@MainActivity, PlayerService::class.java))
         } else {
             setModeOnUI(true)
-            DataManager.setVolume(this, (volumePicker!!.value / 10.0f))
             DataManager.setFrequency(this, numberPicker!!.value)
             startService(Intent(this, PlayerService::class.java))
         }

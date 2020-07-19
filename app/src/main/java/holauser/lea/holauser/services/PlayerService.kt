@@ -89,7 +89,7 @@ class PlayerService: Service() {
         }
         countDownTimer.start()
 
-        val vol = DataManager.getVolume(this)
+        val vol = DataManager.getVolume(this)/100.0f
         rep?.setVolume(vol, vol)
 
         val timerTask = object : TimerTask() {

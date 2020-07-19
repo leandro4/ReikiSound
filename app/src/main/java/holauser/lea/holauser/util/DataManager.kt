@@ -34,12 +34,12 @@ object DataManager {
         shared.setValueForKey(SOUND, bell)
     }
 
-    fun getVolume(context: Context): Float {
+    fun getVolume(context: Context): Int {
         val shared = SharedPreferencesEditor(context, PREFIX)
-        return shared.valueForKey(VOLUME, 7f)
+        return shared.valueForKey(VOLUME, 50)
     }
 
-    fun setVolume(context: Context, volume: Float) {
+    fun setVolume(context: Context, volume: Int) {
         val shared = SharedPreferencesEditor(context, PREFIX)
         shared.setValueForKey(VOLUME, volume)
     }

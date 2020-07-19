@@ -70,8 +70,6 @@ public class SoundSelectorView extends RelativeLayout {
     private void onBackClick(View v) {
         Animations.animateScale(v);
 
-        final ReikiSound globalVariable = (ReikiSound) getContext().getApplicationContext();
-
         switch (soundSelected) {
             case 0:
                 break;
@@ -88,7 +86,7 @@ public class SoundSelectorView extends RelativeLayout {
             default: break;
         }
 
-        DataManager.INSTANCE.setBell(getContext(), soundSelected);
+        //DataManager.INSTANCE.setBell(getContext(), soundSelected);
     }
 
     private void onNextClick(View v) {
@@ -112,7 +110,7 @@ public class SoundSelectorView extends RelativeLayout {
             default: break;
         }
 
-        DataManager.INSTANCE.setBell(getContext(), soundSelected);
+        //DataManager.INSTANCE.setBell(getContext(), soundSelected);
     }
 
     private void animateImageSelected(final int image, final boolean leftPressed) {
