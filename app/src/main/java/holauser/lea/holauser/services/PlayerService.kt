@@ -9,9 +9,10 @@ import android.os.CountDownTimer
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import holauser.lea.holauser.GlobalVars
-import holauser.lea.holauser.GlobalVars.CHANNEL_ID
+import holauser.lea.holauser.ReikiSound
+import holauser.lea.holauser.ReikiSound.CHANNEL_ID
 import holauser.lea.holauser.R
+import holauser.lea.holauser.util.DataManager
 import java.util.*
 
 class PlayerService: Service() {
@@ -30,9 +31,9 @@ class PlayerService: Service() {
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var broadcaster: LocalBroadcastManager
 
-    private fun sendResult(title: String, time: String) {
+    private fun sendResult(time: String) {
         val intent = Intent(BROADCAST_REIKI)
-        intent.putExtra(REIKI_MESSAGE, title + "\n" + time)
+        intent.putExtra(REIKI_MESSAGE, time)
         broadcaster.sendBroadcast(intent)
     }
 
@@ -45,9 +46,9 @@ class PlayerService: Service() {
     private fun buildForegroundNotification(): Notification {
         val b = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
         b.setOngoing(true)
-                .setSubText(getString(R.string.app_name))
-                .setSmallIcon(R.drawable.reiki)
-                .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.icon))
+                .setSubText(getString(R.string.app_name) + " playing")
+                .setSmallIcon(R.drawable.ic_logo)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_logo))
         return b.build()
     }
 
@@ -57,21 +58,19 @@ class PlayerService: Service() {
     }
 
     private fun onStartSession() {
-        val globalVariable = applicationContext as GlobalVars
-        rep = MediaPlayer.create(this, globalVariable.sonido)
-        val frequency = 1000 * globalVariable.tiempo * 60
+        val globalVariable = applicationContext as ReikiSound
+        rep = MediaPlayer.create(this, DataManager.getBell(this))
+        val frequency = 1000 * DataManager.getFrequency(this) * 60
         timer.purge()
 
         repMusic = if (globalVariable.musicToPlay == null) MediaPlayer.create(this, R.raw.relaxing1)
                     else MediaPlayer.create(this, globalVariable.musicToPlay)
 
-        if (globalVariable.isPlayMusic) {
+        if (DataManager.isBackgroundMusicEnabled(this)) {
             repMusic?.isLooping = true
             repMusic?.setVolume(1f, 1f)
             repMusic?.start()
         }
-
-        val remaining = getString(R.string.remaining)
 
         countDownTimer = object : CountDownTimer(frequency.toLong(), 1000) {
 
@@ -81,7 +80,7 @@ class PlayerService: Service() {
                 var seg = (time % 60).toString()
                 if (min.length == 1) min = "0$min"
                 if (seg.length == 1) seg = "0$seg"
-                sendResult(remaining, String.format("%s:%s", min, seg))
+                sendResult(String.format("%s:%s", min, seg))
             }
 
             override fun onFinish() {
@@ -90,13 +89,12 @@ class PlayerService: Service() {
         }
         countDownTimer.start()
 
-        rep?.setVolume(globalVariable.volume, globalVariable.volume)
+        val vol = DataManager.getVolume(this)
+        rep?.setVolume(vol, vol)
 
         val timerTask = object : TimerTask() {
             override fun run() {
                 rep?.start()
-                globalVariable.isPlaying = true
-
             }
         }
         timer.scheduleAtFixedRate(timerTask, 0, frequency.toLong())
@@ -108,7 +106,7 @@ class PlayerService: Service() {
             stopForeground(true)
             timer.cancel()
             countDownTimer.cancel()
-            (applicationContext as GlobalVars).isPlaying = false
+            DataManager.setModeOn(this, false)
             repMusic?.stop()
             repMusic?.release()
         } catch (e: Exception) {

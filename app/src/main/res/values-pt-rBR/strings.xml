@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Reiki Sound</string>
-    <string name="donate_title_choose">Obrigado por doar para Reiki Sound</string>
-    <string name="donate_subtitle_choose">Quanto você quer doar?</string>
-    <string name="donate_title">Obrigado por usar o Reiki Sound :)</string>
-    <string name="donate_subtitle">O Reiki Sound é gratuito e sem propaganda!</string>
-    <string name="donate_body">É muito útil para o nosso time que possa colaborar para continuar a manter e melhorar o serviço para todos os Reikistas.</string>
-    <string name="donate_thanks">Muito obrigado pela vossa ajuda!</string>
-    <string name="donate_button_not">Não, obrigado</string>
+
+    <string name="donate_question">Isso é útil?</string>
+    <string name="donate_button">Apoie a equipe</string>
+
     <string name="select_audio_title">Selecione música</string>
     <string name="select_audio_body">Escolha uma música do seu dispositivo ou use a música padrão do Reiki Sound?</string>
     <string name="select_audio_select">Selecione</string>
     <string name="select_audio_default">Use padrão</string>
     <string name="selected_audio">Áudio selecionado</string>
     <string name="selected_audio_body">Lamentamos, mas o item selecionado não pode ser jogado, tente outro áudio ou altere o formato.</string>
-    <string name="music_selected">Música selecionada</string>
-    <string name="service_subtitle">Cronômetro executando&#8230;</string>
     <string name="remaining">Tempo restante:</string>
     <string name="time_title">Tempo (minutos):</string>
     <string name="enable_music">Ativar música</string>
+
+    <string-array name="music_source">
+        <item>Sem música</item>
+        <item>Squeaky toy&#8230;</item>
+        <item>Música padrão</item>
+    </string-array>
+
 </resources>

@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import holauser.lea.holauser.GlobalVars;
+import holauser.lea.holauser.ReikiSound;
 import holauser.lea.holauser.R;
 import holauser.lea.holauser.util.Animations;
 import holauser.lea.holauser.util.DataManager;
@@ -70,18 +70,18 @@ public class SoundSelectorView extends RelativeLayout {
     private void onBackClick(View v) {
         Animations.animateScale(v);
 
-        final GlobalVars globalVariable = (GlobalVars) getContext().getApplicationContext();
+        final ReikiSound globalVariable = (ReikiSound) getContext().getApplicationContext();
 
         switch (soundSelected) {
             case 0:
                 break;
             case 1:
-                globalVariable.setSonido(R.raw.cuenco);
+                DataManager.INSTANCE.setBell(getContext(), R.raw.cuenco);
                 soundSelected = 0;
                 animateImageSelected(R.drawable.cuenco, true);
                 break;
             case 2:
-                globalVariable.setSonido(R.raw.triangle);
+                DataManager.INSTANCE.setBell(getContext(), R.raw.triangle);
                 soundSelected = 1;
                 animateImageSelected(R.drawable.triangle, true);
                 break;
@@ -94,17 +94,17 @@ public class SoundSelectorView extends RelativeLayout {
     private void onNextClick(View v) {
         Animations.animateScale(v);
 
-        final GlobalVars globalVariable = (GlobalVars) getContext().getApplicationContext();
+        final ReikiSound globalVariable = (ReikiSound) getContext().getApplicationContext();
 
         switch (soundSelected) {
             case 0:
                 soundSelected = 1;
-                globalVariable.setSonido(R.raw.triangle);
+                DataManager.INSTANCE.setBell(getContext(), R.raw.triangle);
                 animateImageSelected(R.drawable.triangle, false);
                 break;
             case 1:
                 soundSelected = 2;
-                globalVariable.setSonido(R.raw.koshi);
+                DataManager.INSTANCE.setBell(getContext(), R.raw.koshi);
                 animateImageSelected(R.drawable.koshi, false);
                 break;
             case 2:

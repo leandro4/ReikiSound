@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Reiki Sound</string>
-    <string name="donate_title_choose">Grazie per aver donato a Reiki Sound</string>
-    <string name="donate_subtitle_choose">Quanto vuoi donare?</string>
-    <string name="donate_title">Grazie per aver usato il suono del Reiki :)</string>
-    <string name="donate_subtitle">Reiki Sound è gratuito e privo di pubblicità!</string>
-    <string name="donate_body">È molto utile per il nostro team che può collaborare per continuare a mantenere e migliorare il servizio per tutti i Reikistan.</string>
-    <string name="donate_thanks">Grazie mille per il tuo aiuto!</string>
-    <string name="donate_button_not">No, grazie</string>
+
+    <string name="donate_question">È utile?</string>
+    <string name="donate_button">Sostieni il team</string>
+
     <string name="select_audio_title">Seleziona la musica</string>
     <string name="select_audio_body">Scegli una canzone dal tuo dispositivo o usa la musica predefinita di Reiki Sound?</string>
     <string name="select_audio_select">Selezionare</string>
     <string name="select_audio_default">Usa predefinito</string>
     <string name="selected_audio">Audio selezionato</string>
     <string name="selected_audio_body">Siamo spiacenti ma l\'elemento selezionato non può essere riprodotto, provare un altro audio o modificare il formato.</string>
-    <string name="music_selected">Musica selezionata</string>
-    <string name="service_subtitle">Cronometro in esecuzione&#8230;</string>
     <string name="remaining">Tempo rimanente:</string>
     <string name="time_title">Tempo (minuti):</string>
     <string name="enable_music">Attiva la musica</string>
+
+    <string-array name="music_source">
+        <item>Nessuna musica</item>
+        <item>Navigare&#8230;</item>
+        <item>Musica predefinita</item>
+    </string-array>
+
 </resources>

@@ -1,19 +1,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
-    android:padding="16dp"
     android:background="@color/white"
-    android:orientation="vertical"
     android:keepScreenOn="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:src="@drawable/reiki"
-        app:layout_constraintHeight_percent="0.13"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logo_small"
+        android:layout_marginTop="30dp"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
@@ -21,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btn_play"
+        app:layout_constraintBottom_toTopOf="@+id/btnHelp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -39,7 +38,6 @@
                 android:layout_gravity="center"
                 android:text="@string/time_title"
                 android:textColor="@color/text_screen"
-                android:fontFamily="@font/open_sans_condensed_bold"
                 android:textSize="20sp" />
 
             <holauser.lea.holauser.ui.custom.NumberPickerView
@@ -49,11 +47,6 @@
                 android:layout_gravity="center" />
 
         </LinearLayout>
-
-        <holauser.lea.holauser.ui.custom.SoundSelectorView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -68,7 +61,6 @@
                 android:layout_gravity="center"
                 android:text="@string/volume_title"
                 android:textColor="@color/text_screen"
-                android:fontFamily="@font/open_sans_condensed_bold"
                 android:textSize="20sp" />
 
             <holauser.lea.holauser.ui.custom.NumberPickerView
@@ -79,17 +71,45 @@
 
         </LinearLayout>
 
+        <holauser.lea.holauser.ui.custom.SoundSelectorView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
         <CheckBox
             android:id="@+id/cb_enable_music"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:buttonTint="@color/text_screen"
-            android:fontFamily="@font/open_sans_condensed_bold"
             android:checked="false"
             android:text="@string/enable_music"
             android:textColor="@color/text_screen"
             android:textSize="18sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/spMusicSource"
+                android:background="@drawable/spinner_rounded_bg"
+                android:elevation="5dp"
+                android:spinnerMode="dropdown"
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"/>
+
+            <ImageView
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/ic_arrow_down"
+                android:elevation="5dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -99,37 +119,57 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:visibility="gone"
-        android:text="@string/remaining"
-        android:textColor="@color/white"
-        android:textSize="50sp"
-        android:fontFamily="@font/open_sans_condensed_bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_play"
+        tools:text="14:13"
+        android:textColor="@color/text_screen"
+        android:textSize="40sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:drawableStart="@drawable/ic_watch_big"
+        android:drawableLeft="@drawable/ic_watch_big"
+        android:drawablePadding="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnHelp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <TextView
-        android:id="@+id/btnPage"
+    <LinearLayout
+        android:id="@+id/btnHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/btn_web_background"
-        android:text="@string/donate_button"
-        android:textColor="@color/white"
-        android:fontFamily="@font/open_sans_condensed_bold"
-        android:padding="6dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:orientation="horizontal"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <ImageView
-        android:id="@+id/btn_play"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/donate_question"
+            android:textColor="@color/text_screen"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_medium"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/donate_button"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/montserrat_medium"/>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:src="@drawable/ic_play"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:background="@drawable/btn_play_state"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
