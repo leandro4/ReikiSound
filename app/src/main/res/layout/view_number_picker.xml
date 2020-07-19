@@ -1,35 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/ivLess"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/ic_less"
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_arrow_left"
+        android:padding="16dp"
+        android:background="@drawable/white_circle"
+        android:elevation="5dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <FrameLayout
+        android:background="@drawable/timer_selected_bg"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvCount"
-        android:textColor="@color/text_screen"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:text="3"
-        android:layout_margin="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/ic_watch_small"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvCount"
+                android:textSize="16sp"
+                tools:text="15 min"
+                android:textColor="@color/text_screen"
+                android:fontFamily="@font/montserrat_medium"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/ivMore"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_add"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_arrow_right"
+        android:padding="16dp"
+        android:background="@drawable/white_circle"
+        android:elevation="5dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 
 </LinearLayout>

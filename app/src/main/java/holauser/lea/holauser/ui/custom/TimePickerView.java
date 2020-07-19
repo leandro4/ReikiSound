@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.Locale;
+
 import holauser.lea.holauser.R;
 import holauser.lea.holauser.util.Animations;
 
@@ -15,29 +18,30 @@ import holauser.lea.holauser.util.Animations;
  * Created by leandro on 20/2/18.
  */
 
-public class NumberPickerView extends RelativeLayout {
+public class TimePickerView extends RelativeLayout {
 
     TextView tvCount;
     private int maxValue = 60;
     private int minValue = 1;
+    private int value = 3;
 
-    public NumberPickerView(Context context) {
+    public TimePickerView(Context context) {
         super(context);
         init(null);
     }
 
-    public NumberPickerView(Context context, AttributeSet attrs) {
+    public TimePickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public NumberPickerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TimePickerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public NumberPickerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public TimePickerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
@@ -52,21 +56,23 @@ public class NumberPickerView extends RelativeLayout {
     public void onLessClick(View v) {
         Animations.animateScale(v);
 
-        int count = Integer.valueOf(tvCount.getText().toString());
+        int count = value;
         if (count == minValue)
             return;
         count--;
-        tvCount.setText(String.valueOf(count));
+        value = count;
+        updateTimeText();
     }
 
     public void onMoreClick(View v) {
         Animations.animateScale(v);
 
-        int count = Integer.valueOf(tvCount.getText().toString());
+        int count = value;
         if (count == maxValue)
             return;
         count++;
-        tvCount.setText(String.valueOf(count));
+        value = count;
+        updateTimeText();
     }
 
     public void setMaxValue(int maxValue) {
@@ -78,11 +84,16 @@ public class NumberPickerView extends RelativeLayout {
     }
 
     public int getValue() {
-        return Integer.valueOf(tvCount.getText().toString());
+        return value;
     }
 
     public void setValue(int time) {
         if (time < minValue || time > maxValue) return;
-        tvCount.setText(String.valueOf(time));
+        value = time;
+        updateTimeText();
+    }
+
+    private void updateTimeText() {
+        tvCount.setText(String.format(Locale.getDefault(), "%d' min", value));
     }
 }
