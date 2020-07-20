@@ -22,8 +22,6 @@ import holauser.lea.holauser.util.DataManager;
 
 public class SoundSelectorView extends RelativeLayout {
 
-    private int soundSelected = 0;
-
     public SoundSelectorView(Context context) {
         super(context);
         init(null);
@@ -50,6 +48,18 @@ public class SoundSelectorView extends RelativeLayout {
         v.findViewById(R.id.ivCuenco).setOnClickListener(this::onCuencoClick);
         v.findViewById(R.id.ivKoshi).setOnClickListener(this::onKoshiClick);
         v.findViewById(R.id.ivTriangle).setOnClickListener(this::onTriangleClick);
+
+        switch (DataManager.INSTANCE.getBell(getContext())) {
+            case R.raw.koshi:
+                onKoshiClick(null);
+                break;
+            case R.raw.triangle:
+                onTriangleClick(null);
+                break;
+            default:
+                onCuencoClick(null);
+                break;
+        }
     }
 
     private void onCuencoClick(View v) {
