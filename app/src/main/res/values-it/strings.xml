@@ -5,15 +5,8 @@
     <string name="donate_question">È utile?</string>
     <string name="donate_button">Sostieni il team</string>
 
-    <string name="select_audio_title">Seleziona la musica</string>
-    <string name="select_audio_body">Scegli una canzone dal tuo dispositivo o usa la musica predefinita di Reiki Sound?</string>
-    <string name="select_audio_select">Selezionare</string>
-    <string name="select_audio_default">Usa predefinito</string>
     <string name="selected_audio">Audio selezionato</string>
     <string name="selected_audio_body">Siamo spiacenti ma l\'elemento selezionato non può essere riprodotto, provare un altro audio o modificare il formato.</string>
-    <string name="remaining">Tempo rimanente:</string>
-    <string name="time_title">Tempo (minuti):</string>
-    <string name="enable_music">Attiva la musica</string>
 
     <string-array name="music_source">
         <item>Nessuna musica</item>

@@ -7,13 +7,6 @@
 
     <string name="selected_audio">Выбрать Аудио</string>
     <string name="selected_audio_body">Извините, но ваш аудио файл не воспроизводится. Пожалуйста, выберите другой.</string>
-    <string name="select_audio_title">Выбрать музыку</string>
-    <string name="select_audio_body">Выбрать музыку с устройства или использовать встроенную музыку Reiki Sound?</string>
-    <string name="select_audio_select">Выбрать</string>
-    <string name="select_audio_default">По умолчанию</string>
-    <string name="remaining">Осталось времени:</string>
-    <string name="time_title">Время (минуты):</string>
-    <string name="enable_music">Включить музыку</string>
 
     <string-array name="music_source">
         <item>Нет музыки</item>
