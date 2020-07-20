@@ -5,23 +5,33 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/ivBack"
-        android:src="@drawable/ic_before"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/ivCuenco"
+        android:background="@drawable/sound_state_selector"
+        android:elevation="5dp"
+        android:src="@drawable/state_cuenco"
+        android:scaleType="centerInside"
+        android:layout_margin="10dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
 
     <ImageView
-        android:id="@+id/ivSelected"
-        android:src="@drawable/cuenco"
-        android:layout_width="110dp"
-        android:layout_height="110dp" />
+        android:id="@+id/ivKoshi"
+        android:background="@drawable/sound_state_selector"
+        android:elevation="5dp"
+        android:src="@drawable/state_koshi"
+        android:scaleType="centerInside"
+        android:layout_margin="10dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
 
     <ImageView
-        android:id="@+id/ivNext"
-        android:src="@drawable/ic_next"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/ivTriangle"
+        android:background="@drawable/sound_state_selector"
+        android:elevation="5dp"
+        android:src="@drawable/state_triangle"
+        android:scaleType="centerInside"
+        android:layout_margin="10dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
 
 </LinearLayout>

@@ -22,8 +22,6 @@ import holauser.lea.holauser.util.DataManager;
 
 public class SoundSelectorView extends RelativeLayout {
 
-    private ImageView ivSelected;
-
     private int soundSelected = 0;
 
     public SoundSelectorView(Context context) {
@@ -49,74 +47,29 @@ public class SoundSelectorView extends RelativeLayout {
 
     public void init(AttributeSet attributeSet) {
         View v = LayoutInflater.from(getContext()).inflate(R.layout.view_sound_selector, this);
-        ivSelected = v.findViewById(R.id.ivSelected);
-        v.findViewById(R.id.ivNext).setOnClickListener(this::onNextClick);
-        v.findViewById(R.id.ivBack).setOnClickListener(this::onBackClick);
-
-        switch (DataManager.INSTANCE.getBell(getContext())) {
-            case 1:
-                soundSelected = 1;
-                ivSelected.setImageResource(R.drawable.triangle);
-                break;
-            case 2:
-                soundSelected = 2;
-                ivSelected.setImageResource(R.drawable.koshi);
-                break;
-            default:
-                break;
-        }
+        v.findViewById(R.id.ivCuenco).setOnClickListener(this::onCuencoClick);
+        v.findViewById(R.id.ivKoshi).setOnClickListener(this::onKoshiClick);
+        v.findViewById(R.id.ivTriangle).setOnClickListener(this::onTriangleClick);
     }
 
-    private void onBackClick(View v) {
-        Animations.animateScale(v);
-
-        switch (soundSelected) {
-            case 0:
-                break;
-            case 1:
-                DataManager.INSTANCE.setBell(getContext(), R.raw.cuenco);
-                soundSelected = 0;
-                animateImageSelected(R.drawable.cuenco, true);
-                break;
-            case 2:
-                DataManager.INSTANCE.setBell(getContext(), R.raw.triangle);
-                soundSelected = 1;
-                animateImageSelected(R.drawable.triangle, true);
-                break;
-            default: break;
-        }
-
-        //DataManager.INSTANCE.setBell(getContext(), soundSelected);
+    private void onCuencoClick(View v) {
+        DataManager.INSTANCE.setBell(getContext(), R.raw.cuenco);
+        findViewById(R.id.ivCuenco).setSelected(true);
+        findViewById(R.id.ivKoshi).setSelected(false);
+        findViewById(R.id.ivTriangle).setSelected(false);
     }
 
-    private void onNextClick(View v) {
-        Animations.animateScale(v);
-
-        final ReikiSound globalVariable = (ReikiSound) getContext().getApplicationContext();
-
-        switch (soundSelected) {
-            case 0:
-                soundSelected = 1;
-                DataManager.INSTANCE.setBell(getContext(), R.raw.triangle);
-                animateImageSelected(R.drawable.triangle, false);
-                break;
-            case 1:
-                soundSelected = 2;
-                DataManager.INSTANCE.setBell(getContext(), R.raw.koshi);
-                animateImageSelected(R.drawable.koshi, false);
-                break;
-            case 2:
-                break;
-            default: break;
-        }
-
-        //DataManager.INSTANCE.setBell(getContext(), soundSelected);
+    private void onKoshiClick(View v) {
+        DataManager.INSTANCE.setBell(getContext(), R.raw.koshi);
+        findViewById(R.id.ivCuenco).setSelected(false);
+        findViewById(R.id.ivKoshi).setSelected(true);
+        findViewById(R.id.ivTriangle).setSelected(false);
     }
 
-    private void animateImageSelected(final int image, final boolean leftPressed) {
-        YoYo.with(leftPressed ? Techniques.SlideOutRight : Techniques.SlideOutLeft).duration(100).onEnd(animator -> {
-            ivSelected.setImageResource(image);
-            YoYo.with(leftPressed ? Techniques.SlideInLeft : Techniques.SlideInRight).duration(100).playOn(ivSelected);
-        }).playOn(ivSelected);
+    private void onTriangleClick(View v) {
+        DataManager.INSTANCE.setBell(getContext(), R.raw.triangle);
+        findViewById(R.id.ivCuenco).setSelected(false);
+        findViewById(R.id.ivKoshi).setSelected(false);
+        findViewById(R.id.ivTriangle).setSelected(true);
     }
 }
