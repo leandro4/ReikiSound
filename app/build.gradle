@@ -12,8 +12,8 @@ android {
         applicationId "holauser.lea.holauser"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 32
-        versionName "1.0.0"
+        versionCode 33
+        versionName "1.0.1"
         multiDexEnabled true
     }
     buildTypes {
