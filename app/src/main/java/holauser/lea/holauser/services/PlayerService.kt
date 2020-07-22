@@ -28,7 +28,7 @@ class PlayerService: Service() {
     private val timer = Timer()
     private var rep: MediaPlayer? = null
     private var repMusic: MediaPlayer? = null
-    private lateinit var countDownTimer: CountDownTimer
+    private var countDownTimer: CountDownTimer? = null
     private lateinit var broadcaster: LocalBroadcastManager
 
     private fun sendResult(time: String) {
@@ -84,10 +84,10 @@ class PlayerService: Service() {
             }
 
             override fun onFinish() {
-                countDownTimer.start()
+                countDownTimer?.start()
             }
         }
-        countDownTimer.start()
+        countDownTimer?.start()
 
         val vol = DataManager.getVolume(this)/100.0f
         rep?.setVolume(vol, vol)
@@ -105,7 +105,7 @@ class PlayerService: Service() {
         try {
             stopForeground(true)
             timer.cancel()
-            countDownTimer.cancel()
+            countDownTimer?.cancel()
             DataManager.setModeOn(this, false)
             repMusic?.stop()
             repMusic?.release()

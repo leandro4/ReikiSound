@@ -1,26 +1,19 @@
 package holauser.lea.holauser.ui.custom;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import holauser.lea.holauser.ReikiSound;
 import holauser.lea.holauser.R;
-import holauser.lea.holauser.util.Animations;
 import holauser.lea.holauser.util.DataManager;
 
-/**
- * Created by leandro on 20/2/18.
- */
-
 public class SoundSelectorView extends RelativeLayout {
+
+    private MediaPlayer rep = null;
 
     public SoundSelectorView(Context context) {
         super(context);
@@ -51,18 +44,19 @@ public class SoundSelectorView extends RelativeLayout {
 
         switch (DataManager.INSTANCE.getBell(getContext())) {
             case R.raw.koshi:
-                onKoshiClick(null);
+                findViewById(R.id.ivKoshi).setSelected(true);
                 break;
             case R.raw.triangle:
-                onTriangleClick(null);
+                findViewById(R.id.ivTriangle).setSelected(true);
                 break;
             default:
-                onCuencoClick(null);
+                findViewById(R.id.ivCuenco).setSelected(true);
                 break;
         }
     }
 
     private void onCuencoClick(View v) {
+        playSound(R.raw.cuenco);
         DataManager.INSTANCE.setBell(getContext(), R.raw.cuenco);
         findViewById(R.id.ivCuenco).setSelected(true);
         findViewById(R.id.ivKoshi).setSelected(false);
@@ -70,6 +64,7 @@ public class SoundSelectorView extends RelativeLayout {
     }
 
     private void onKoshiClick(View v) {
+        playSound(R.raw.koshi);
         DataManager.INSTANCE.setBell(getContext(), R.raw.koshi);
         findViewById(R.id.ivCuenco).setSelected(false);
         findViewById(R.id.ivKoshi).setSelected(true);
@@ -77,9 +72,20 @@ public class SoundSelectorView extends RelativeLayout {
     }
 
     private void onTriangleClick(View v) {
+        playSound(R.raw.triangle);
         DataManager.INSTANCE.setBell(getContext(), R.raw.triangle);
         findViewById(R.id.ivCuenco).setSelected(false);
         findViewById(R.id.ivKoshi).setSelected(false);
         findViewById(R.id.ivTriangle).setSelected(true);
+    }
+
+    private void playSound(int sound) {
+        if (rep != null) {
+            rep.stop();
+            rep.release();
+        }
+        rep = MediaPlayer.create(getContext(), sound);
+        rep.setVolume(0.5f, 0.5f);
+        rep.start();
     }
 }

@@ -21,6 +21,7 @@ import android.widget.SeekBar
 import holauser.lea.holauser.R
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import holauser.lea.holauser.util.EventTracker
 
 
 class MainActivity : BaseReceiverActivity() {
@@ -89,12 +90,14 @@ class MainActivity : BaseReceiverActivity() {
 
     private fun onPlayClick() {
         if (DataManager.isModeOn(this)) {
+            EventTracker.trackReikiSession(this)
             setModeOnUI(false)
             stopService(Intent(this@MainActivity, PlayerService::class.java))
         } else {
             setModeOnUI(true)
             DataManager.setFrequency(this, numberPicker!!.value)
             startService(Intent(this, PlayerService::class.java))
+            DataManager.saveStartSessionTime(this)
         }
         DataManager.setModeOn(this, !DataManager.isModeOn(this))
     }
