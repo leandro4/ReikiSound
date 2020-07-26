@@ -31,6 +31,7 @@ import holauser.lea.holauser.util.EventTracker
 import android.graphics.drawable.TransitionDrawable
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -141,7 +142,7 @@ class MainActivity : BaseReceiverActivity() {
             else {
                 val anim = ValueAnimator.ofArgb(ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.black))
                 anim.addUpdateListener { valueAnimator -> root.setBackgroundColor(valueAnimator.animatedValue as Int) }
-                anim.duration = 200
+                anim.duration = 300
                 anim.start()
             }
 
@@ -157,7 +158,7 @@ class MainActivity : BaseReceiverActivity() {
             else {
                 val anim = ValueAnimator.ofArgb(ContextCompat.getColor(this, R.color.black), ContextCompat.getColor(this, R.color.white))
                 anim.addUpdateListener { valueAnimator -> root.setBackgroundColor(valueAnimator.animatedValue as Int) }
-                anim.duration = 200
+                anim.duration = 300
                 anim.start()
             }
 
@@ -198,7 +199,7 @@ class MainActivity : BaseReceiverActivity() {
                 btnPlay.setBackgroundResource(R.drawable.btn_play_state)
             }
             hideControls()
-            root.setOnClickListener { showControls() }
+            root.setOnClickListener { showControls(true) }
         } else {
             if (DataManager.isDarkModeOn(this)) {
                 updateDarkModeUI(false)
@@ -208,6 +209,7 @@ class MainActivity : BaseReceiverActivity() {
             btnPlay.setBackgroundResource(R.drawable.btn_play_state)
             root.setOnClickListener(null)
             runnable?.let { handler.removeCallbacks(it) }
+            showControls(false)
         }
     }
 
@@ -216,42 +218,42 @@ class MainActivity : BaseReceiverActivity() {
     private fun hideControls() {
         runnable?.let { handler.removeCallbacks(it) }
         runnable = Runnable {
-            imageView.animate().alpha(0f).setDuration(200).setListener(object : AnimatorListenerAdapter() {
+            imageView.animate().alpha(0f).setDuration(300).setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     imageView.visibility = INVISIBLE
                 }
             })
-            llDarkModeControls.animate().alpha(0f).setDuration(200).setListener(object : AnimatorListenerAdapter() {
+            llDarkModeControls.animate().alpha(0f).setDuration(300).setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     llDarkModeControls.visibility = INVISIBLE
                 }
             })
-            btnHelp.animate().alpha(0f).setDuration(200).setListener(object : AnimatorListenerAdapter() {
+            btnHelp.animate().alpha(0f).setDuration(300).setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     btnHelp.visibility = INVISIBLE
                 }
             })
-            btnPlay.animate().alpha(0f).setDuration(200).setListener(object : AnimatorListenerAdapter() {
+            btnPlay.animate().alpha(0f).setDuration(300).setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     btnPlay.visibility = INVISIBLE
                 }
             })
         }
-        handler.postDelayed(runnable!!, 2000)
+        handler.postDelayed(runnable!!, 3000)
     }
 
-    private fun showControls() {
+    private fun showControls(hideAgain: Boolean) {
         if (btnPlay.visibility == INVISIBLE) {
             imageView.visibility = VISIBLE
-            imageView.animate().alpha(1f).setDuration(200).setListener(null)
+            imageView.animate().alpha(1f).setDuration(300).setListener(null)
             llDarkModeControls.visibility = VISIBLE
-            llDarkModeControls.animate().alpha(1f).setDuration(200).setListener(null)
+            llDarkModeControls.animate().alpha(1f).setDuration(300).setListener(null)
             btnHelp.visibility = VISIBLE
-            btnHelp.animate().alpha(1f).setDuration(200).setListener(null)
+            btnHelp.animate().alpha(1f).setDuration(300).setListener(null)
             btnPlay.visibility = VISIBLE
-            btnPlay.animate().alpha(1f).setDuration(200).setListener(null)
+            btnPlay.animate().alpha(1f).setDuration(300).setListener(null)
         }
-        hideControls()
+        if (hideAgain) hideControls()
     }
 
     private fun onDonateClick() {
