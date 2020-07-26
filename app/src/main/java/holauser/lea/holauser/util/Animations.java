@@ -11,6 +11,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.view.View.INVISIBLE;
+
 public class Animations {
 
     public static void animateScale(final View view) {

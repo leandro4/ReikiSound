@@ -1,15 +1,22 @@
 package holauser.lea.holauser.ui.activities
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Build.VERSION.SDK
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 
 import androidx.appcompat.app.AlertDialog
 import android.view.View
+import android.view.View.*
+import android.view.Window.FEATURE_ACTION_BAR_OVERLAY
 import android.widget.AdapterView
 
 import holauser.lea.holauser.ReikiSound
@@ -19,10 +26,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import holauser.lea.holauser.R
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import holauser.lea.holauser.util.EventTracker
-
+import android.graphics.drawable.TransitionDrawable
+import android.os.Handler
+import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_splash.*
 
 class MainActivity : BaseReceiverActivity() {
 
@@ -44,6 +55,24 @@ class MainActivity : BaseReceiverActivity() {
 
         initSpinner()
         initSeekBarVol()
+        initDarkModeControls()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) hideSystemUI()
+    }
+
+    private fun hideSystemUI() {
+        window.decorView.systemUiVisibility = (SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                // Set the content to appear under the system bars so that the
+                // content doesn't resize when the system bars hide and show.
+                or SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                // Hide the nav bar and status bar
+                or SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or SYSTEM_UI_FLAG_FULLSCREEN)
     }
 
     private fun initSeekBarVol() {
@@ -62,11 +91,11 @@ class MainActivity : BaseReceiverActivity() {
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
-                flVolumeDialog.visibility = View.VISIBLE
+                flVolumeDialog.visibility = VISIBLE
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-                flVolumeDialog.visibility = View.INVISIBLE
+                flVolumeDialog.visibility = INVISIBLE
                 DataManager.setVolume(this@MainActivity, p0?.progress ?: 50)
             }
         })
@@ -88,6 +117,59 @@ class MainActivity : BaseReceiverActivity() {
         }
     }
 
+    private fun initDarkModeControls() {
+        ivDarkModeOn.setOnClickListener {
+            if (it.isSelected) return@setOnClickListener
+            DataManager.setDarkMode(this, true)
+            updateDarkModeUI(true)
+        }
+
+        ivDarkModeOff.setOnClickListener {
+            if (it.isSelected) return@setOnClickListener
+            DataManager.setDarkMode(this, false)
+            updateDarkModeUI(false)
+        }
+
+    }
+
+    private fun updateDarkModeUI(darkModeOn: Boolean) {
+        if (darkModeOn) {
+            imageView.setImageResource(R.drawable.ic_logo_small_dark)
+
+            if (SDK_INT < 21)
+                root.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+            else {
+                val anim = ValueAnimator.ofArgb(ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.black))
+                anim.addUpdateListener { valueAnimator -> root.setBackgroundColor(valueAnimator.animatedValue as Int) }
+                anim.duration = 200
+                anim.start()
+            }
+
+            ivDarkModeOn.setBackgroundResource(R.drawable.rectangle_rounded_gray)
+            ivDarkModeOff.setBackgroundResource(R.drawable.rectangle_rounded_gray)
+            btnPlay.setImageResource(R.drawable.ic_pause_dark)
+            btnPlay.setBackgroundResource(R.drawable.btn_play_selected_dark)
+        } else {
+            imageView.setImageResource(R.drawable.ic_logo_small_disabled)
+
+            if (SDK_INT < 21)
+                root.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            else {
+                val anim = ValueAnimator.ofArgb(ContextCompat.getColor(this, R.color.black), ContextCompat.getColor(this, R.color.white))
+                anim.addUpdateListener { valueAnimator -> root.setBackgroundColor(valueAnimator.animatedValue as Int) }
+                anim.duration = 200
+                anim.start()
+            }
+
+            ivDarkModeOn.setBackgroundResource(R.drawable.light_mode_state_selector)
+            ivDarkModeOff.setBackgroundResource(R.drawable.light_mode_state_selector)
+            btnPlay.setImageResource(R.drawable.ic_pause)
+            btnPlay.setBackgroundResource(R.drawable.btn_play_state)
+        }
+        ivDarkModeOn.isSelected = darkModeOn
+        ivDarkModeOff.isSelected = !darkModeOn
+    }
+
     private fun onPlayClick() {
         if (DataManager.isModeOn(this)) {
             EventTracker.trackReikiSession(this)
@@ -103,12 +185,73 @@ class MainActivity : BaseReceiverActivity() {
     }
 
     private fun setModeOnUI(modeOn: Boolean) {
-        rl_content_select.visibility = if (modeOn) View.GONE else View.VISIBLE
-        chronometer!!.visibility = if (modeOn) View.VISIBLE else View.GONE
-        //root.setBackgroundColor(ContextCompat.getColor(this, if (stop) R.color.white else R.color.dark_screen))
-        btnPlay.setImageResource(if (modeOn) R.drawable.ic_pause else R.drawable.ic_play)
+        rl_content_select.visibility = if (modeOn) GONE else VISIBLE
+        llChronometer!!.visibility = if (modeOn) VISIBLE else GONE
         btnPlay.isSelected = modeOn
-        imageView.setImageResource(if (modeOn) R.drawable.ic_logo_small_disabled else R.drawable.ic_logo_small)
+
+        if (modeOn) {
+            if (DataManager.isDarkModeOn(this)) {
+                updateDarkModeUI(true)
+            } else {
+                imageView.setImageResource(R.drawable.ic_logo_small_disabled)
+                btnPlay.setImageResource(R.drawable.ic_pause)
+                btnPlay.setBackgroundResource(R.drawable.btn_play_state)
+            }
+            hideControls()
+            root.setOnClickListener { showControls() }
+        } else {
+            if (DataManager.isDarkModeOn(this)) {
+                updateDarkModeUI(false)
+            }
+            imageView.setImageResource(R.drawable.ic_logo_small)
+            btnPlay.setImageResource(R.drawable.ic_play)
+            btnPlay.setBackgroundResource(R.drawable.btn_play_state)
+            root.setOnClickListener(null)
+            runnable?.let { handler.removeCallbacks(it) }
+        }
+    }
+
+    private var handler = Handler(Looper.getMainLooper())
+    private var runnable: Runnable? = null
+    private fun hideControls() {
+        runnable?.let { handler.removeCallbacks(it) }
+        runnable = Runnable {
+            imageView.animate().alpha(0f).setDuration(200).setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    imageView.visibility = INVISIBLE
+                }
+            })
+            llDarkModeControls.animate().alpha(0f).setDuration(200).setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    llDarkModeControls.visibility = INVISIBLE
+                }
+            })
+            btnHelp.animate().alpha(0f).setDuration(200).setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    btnHelp.visibility = INVISIBLE
+                }
+            })
+            btnPlay.animate().alpha(0f).setDuration(200).setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    btnPlay.visibility = INVISIBLE
+                }
+            })
+        }
+        handler.postDelayed(runnable!!, 2000)
+    }
+
+    private fun showControls() {
+        if (btnPlay.visibility == INVISIBLE) {
+            imageView.visibility = VISIBLE
+            imageView.animate().alpha(1f).setDuration(200).setListener(null)
+            llDarkModeControls.visibility = VISIBLE
+            llDarkModeControls.animate().alpha(1f).setDuration(200).setListener(null)
+            btnHelp.visibility = VISIBLE
+            btnHelp.animate().alpha(1f).setDuration(200).setListener(null)
+            btnPlay.visibility = VISIBLE
+            btnPlay.animate().alpha(1f).setDuration(200).setListener(null)
+        }
+        hideControls()
     }
 
     private fun onDonateClick() {

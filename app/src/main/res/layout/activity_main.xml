@@ -3,7 +3,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
-    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/dark_mode_transition"
     android:keepScreenOn="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -136,23 +137,61 @@
 
     </ScrollView>
 
-    <TextView
-        android:id="@+id/chronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+    <LinearLayout
+        android:id="@+id/llChronometer"
         android:visibility="gone"
-        tools:text="14:13"
-        android:textColor="@color/text_screen"
-        android:textSize="40sp"
-        android:fontFamily="@font/montserrat_medium"
-        android:drawableStart="@drawable/ic_watch_big"
-        android:drawableLeft="@drawable/ic_watch_big"
-        android:drawablePadding="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/btnHelp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TextView
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            tools:text="14:13"
+            android:textColor="@color/text_screen"
+            android:textSize="40sp"
+            android:fontFamily="@font/montserrat_medium"
+            android:drawableStart="@drawable/ic_watch_big"
+            android:drawableLeft="@drawable/ic_watch_big"
+            android:drawablePadding="24dp" />
+
+        <LinearLayout
+            android:id="@+id/llDarkModeControls"
+            android:layout_marginTop="90dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivDarkModeOff"
+                android:background="@drawable/light_mode_state_selector"
+                android:elevation="5dp"
+                android:src="@drawable/state_sun"
+                android:scaleType="centerInside"
+                android:layout_margin="8dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+            <ImageView
+                android:id="@+id/ivDarkModeOn"
+                android:background="@drawable/light_mode_state_selector"
+                android:elevation="5dp"
+                android:src="@drawable/state_moon"
+                android:scaleType="centerInside"
+                android:layout_margin="8dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/btnHelp"

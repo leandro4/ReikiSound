@@ -5,6 +5,8 @@
     <color name="colorPrimaryDark">#7767ea</color>
 
     <color name="white">#ffffff</color>
+    <color name="black">#000</color>
+    <color name="gray_button">#22252a</color>
 
     <color name="text_screen">#979797</color>
 
