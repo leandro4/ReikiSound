@@ -12,7 +12,12 @@
     <string-array name="music_source">
         <item>Pas de musique</item>
         <item>Feuilleter&#8230;</item>
-        <item>Musique par défaut</item>
+        <item>Musique par défaut 1</item>
+        <item>Musique par défaut 2</item>
+        <item>Musique par défaut 3</item>
+        <item>Musique par défaut 4</item>
+        <item>Musique par défaut 5</item>
+        <item>Musique par défaut 6</item>
     </string-array>
 
 </resources>

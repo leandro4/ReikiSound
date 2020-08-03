@@ -34,6 +34,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import holauser.lea.holauser.util.Constants
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class MainActivity : BaseReceiverActivity() {
@@ -110,9 +111,14 @@ class MainActivity : BaseReceiverActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 DataManager.setBackgroundMusicEnabled(this@MainActivity, p2 != 0)
                 when (p2) {
+                    0 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.NO_MUSIC)
                     1 -> selectAudio()
-                    2 -> (applicationContext as ReikiSound).musicToPlay = null
-                    else -> {}
+                    2 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_1)
+                    3 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_2)
+                    4 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_3)
+                    5 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_4)
+                    6 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_5)
+                    7 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_6)
                 }
             }
         }
@@ -278,9 +284,11 @@ class MainActivity : BaseReceiverActivity() {
                         .show()
             } else {
                 (applicationContext as ReikiSound).musicToPlay = uri
+                DataManager.setBackgroundMusicOption(this@MainActivity, Constants.LOCAL_MUSIC)
             }
         } else if (requestCode == AUDIO_SELECTION && resultCode == Activity.RESULT_CANCELED) {
             spMusicSource.setSelection(0)
+            DataManager.setBackgroundMusicOption(this@MainActivity, Constants.NO_MUSIC)
         }
     }
 

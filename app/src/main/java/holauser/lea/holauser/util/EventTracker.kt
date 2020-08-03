@@ -22,6 +22,11 @@ object EventTracker {
     private const val NO_MUSIC = "no_music"
     private const val LOCAL_MUSIC = "local_music"
     private const val DEFAULT_MUSIC = "default_music"
+    private const val DEFAULT_MUSIC_2 = "default_music_2"
+    private const val DEFAULT_MUSIC_3 = "default_music_3"
+    private const val DEFAULT_MUSIC_4 = "default_music_4"
+    private const val DEFAULT_MUSIC_5 = "default_music_5"
+    private const val DEFAULT_MUSIC_6 = "default_music_6"
 
     fun trackReikiSession(context: Context) {
         val firebaseAnalytics = FirebaseAnalytics.getInstance(context)
@@ -38,10 +43,15 @@ object EventTracker {
             else -> TRIANGLE
         }
 
-        val uri = ((context.applicationContext) as ReikiSound).musicToPlay
-        val music = when (DataManager.isBackgroundMusicEnabled(context)) {
-            false -> NO_MUSIC
-            else -> uri?.let { LOCAL_MUSIC } ?: DEFAULT_MUSIC
+        val music = when (DataManager.getBackgroundMusicOption(context)) {
+            Constants.LOCAL_MUSIC -> LOCAL_MUSIC
+            Constants.DEFAULT_1 -> DEFAULT_MUSIC
+            Constants.DEFAULT_2 -> DEFAULT_MUSIC_2
+            Constants.DEFAULT_3 -> DEFAULT_MUSIC_3
+            Constants.DEFAULT_4 -> DEFAULT_MUSIC_4
+            Constants.DEFAULT_5 -> DEFAULT_MUSIC_5
+            Constants.DEFAULT_6 -> DEFAULT_MUSIC_6
+            else -> NO_MUSIC
         }
 
         val bundle = Bundle()

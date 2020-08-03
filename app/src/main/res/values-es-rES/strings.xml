@@ -12,7 +12,12 @@
     <string-array name="music_source">
         <item>Sin música</item>
         <item>Buscar&#8230;</item>
-        <item>Música de Reiki Sound</item>
+        <item>Música de Reiki Sound 1</item>
+        <item>Música de Reiki Sound 2</item>
+        <item>Música de Reiki Sound 3</item>
+        <item>Música de Reiki Sound 4</item>
+        <item>Música de Reiki Sound 5</item>
+        <item>Música de Reiki Sound 6</item>
     </string-array>
 
 </resources>

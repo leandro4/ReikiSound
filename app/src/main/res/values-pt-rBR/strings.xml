@@ -11,7 +11,12 @@
     <string-array name="music_source">
         <item>Sem música</item>
         <item>Squeaky toy&#8230;</item>
-        <item>Música padrão</item>
+        <item>Música padrão 1</item>
+        <item>Música padrão 2</item>
+        <item>Música padrão 3</item>
+        <item>Música padrão 4</item>
+        <item>Música padrão 5</item>
+        <item>Música padrão 6</item>
     </string-array>
 
 </resources>

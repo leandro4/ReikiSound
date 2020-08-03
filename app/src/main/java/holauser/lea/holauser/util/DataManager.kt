@@ -12,6 +12,7 @@ object DataManager {
     private val VOLUME = "VOLUME"
     private val MODE_ON = "MODE_ON"
     private val BACKGOURND_MUSIC_ENABLED = "BACKGOURND_MUSIC_ENABLED"
+    private val BACKGOURND_MUSIC_OPTION = "BACKGOURND_MUSIC_OPTION"
     private val STARTING_SESSION_TIME = "STARTING_SESSION_TIME"
     private val DARK_MODE_ON = "DARK_MODE_ON"
 
@@ -63,6 +64,16 @@ object DataManager {
     fun setBackgroundMusicEnabled(context: Context, enabled: Boolean) {
         val shared = SharedPreferencesEditor(context, PREFIX)
         shared.setValueForKey(BACKGOURND_MUSIC_ENABLED, enabled)
+    }
+
+    fun getBackgroundMusicOption(context: Context): Int {
+        val shared = SharedPreferencesEditor(context, PREFIX)
+        return shared.valueForKey(BACKGOURND_MUSIC_OPTION, R.raw.relaxing1)
+    }
+
+    fun setBackgroundMusicOption(context: Context, option: Int) {
+        val shared = SharedPreferencesEditor(context, PREFIX)
+        shared.setValueForKey(BACKGOURND_MUSIC_OPTION, option)
     }
 
     fun isDarkModeOn(context: Context): Boolean {

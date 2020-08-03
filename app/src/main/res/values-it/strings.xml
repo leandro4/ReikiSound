@@ -11,7 +11,12 @@
     <string-array name="music_source">
         <item>Nessuna musica</item>
         <item>Navigare&#8230;</item>
-        <item>Musica predefinita</item>
+        <item>Musica predefinita 1</item>
+        <item>Musica predefinita 2</item>
+        <item>Musica predefinita 3</item>
+        <item>Musica predefinita 4</item>
+        <item>Musica predefinita 5</item>
+        <item>Musica predefinita 6</item>
     </string-array>
 
 </resources>

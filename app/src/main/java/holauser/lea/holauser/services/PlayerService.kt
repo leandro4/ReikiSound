@@ -12,6 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import holauser.lea.holauser.ReikiSound
 import holauser.lea.holauser.ReikiSound.CHANNEL_ID
 import holauser.lea.holauser.R
+import holauser.lea.holauser.util.Constants
 import holauser.lea.holauser.util.DataManager
 import java.util.*
 
@@ -63,8 +64,16 @@ class PlayerService: Service() {
         val frequency = 1000 * DataManager.getFrequency(this) * 60
         timer.purge()
 
-        repMusic = if (globalVariable.musicToPlay == null) MediaPlayer.create(this, R.raw.relaxing1)
-                    else MediaPlayer.create(this, globalVariable.musicToPlay)
+        repMusic = when (DataManager.getBackgroundMusicOption(this)) {
+            Constants.LOCAL_MUSIC -> MediaPlayer.create(this, globalVariable.musicToPlay)
+            Constants.DEFAULT_1 -> MediaPlayer.create(this, R.raw.relaxing1)
+            Constants.DEFAULT_2 -> MediaPlayer.create(this, R.raw.relaxing2)
+            Constants.DEFAULT_3 -> MediaPlayer.create(this, R.raw.relaxing3)
+            Constants.DEFAULT_4 -> MediaPlayer.create(this, R.raw.relaxing4)
+            Constants.DEFAULT_5 -> MediaPlayer.create(this, R.raw.relaxing5)
+            Constants.DEFAULT_6 -> MediaPlayer.create(this, R.raw.relaxing6)
+            else -> null
+        }
 
         if (DataManager.isBackgroundMusicEnabled(this)) {
             repMusic?.isLooping = true

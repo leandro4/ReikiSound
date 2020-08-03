@@ -11,7 +11,12 @@
     <string-array name="music_source">
         <item>No music</item>
         <item>Browse&#8230;</item>
-        <item>Default music</item>
+        <item>Default music 1</item>
+        <item>Default music 2</item>
+        <item>Default music 3</item>
+        <item>Default music 4</item>
+        <item>Default music 5</item>
+        <item>Default music 6</item>
     </string-array>
 
 </resources>
