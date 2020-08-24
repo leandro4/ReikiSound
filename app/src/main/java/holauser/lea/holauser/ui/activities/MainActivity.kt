@@ -119,6 +119,7 @@ class MainActivity : BaseReceiverActivity() {
                     5 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_4)
                     6 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_5)
                     7 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_6)
+                    8 -> DataManager.setBackgroundMusicOption(this@MainActivity, Constants.DEFAULT_7)
                 }
             }
         }

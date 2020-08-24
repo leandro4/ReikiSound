@@ -72,6 +72,7 @@ class PlayerService: Service() {
             Constants.DEFAULT_4 -> MediaPlayer.create(this, R.raw.relaxing4)
             Constants.DEFAULT_5 -> MediaPlayer.create(this, R.raw.relaxing5)
             Constants.DEFAULT_6 -> MediaPlayer.create(this, R.raw.relaxing6)
+            Constants.DEFAULT_7 -> MediaPlayer.create(this, R.raw.relaxing7)
             else -> null
         }
 

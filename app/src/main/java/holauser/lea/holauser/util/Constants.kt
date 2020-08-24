@@ -11,4 +11,5 @@ object Constants {
     const val DEFAULT_4 = 40
     const val DEFAULT_5 = 50
     const val DEFAULT_6 = 60
+    const val DEFAULT_7 = 70
 }

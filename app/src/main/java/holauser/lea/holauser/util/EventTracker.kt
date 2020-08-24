@@ -27,6 +27,7 @@ object EventTracker {
     private const val DEFAULT_MUSIC_4 = "default_music_4"
     private const val DEFAULT_MUSIC_5 = "default_music_5"
     private const val DEFAULT_MUSIC_6 = "default_music_6"
+    private const val DEFAULT_MUSIC_7 = "default_music_7"
 
     fun trackReikiSession(context: Context) {
         val firebaseAnalytics = FirebaseAnalytics.getInstance(context)
@@ -51,6 +52,7 @@ object EventTracker {
             Constants.DEFAULT_4 -> DEFAULT_MUSIC_4
             Constants.DEFAULT_5 -> DEFAULT_MUSIC_5
             Constants.DEFAULT_6 -> DEFAULT_MUSIC_6
+            Constants.DEFAULT_7 -> DEFAULT_MUSIC_7
             else -> NO_MUSIC
         }
 
