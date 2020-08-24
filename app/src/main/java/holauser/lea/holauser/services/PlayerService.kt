@@ -61,7 +61,7 @@ class PlayerService: Service() {
     private fun onStartSession() {
         val globalVariable = applicationContext as ReikiSound
         rep = MediaPlayer.create(this, DataManager.getBell(this))
-        val frequency = 1000 * DataManager.getFrequency(this) * 60
+        val frequency = 1000 * DataManager.getFrequency(this)
         timer.purge()
 
         repMusic = when (DataManager.getBackgroundMusicOption(this)) {

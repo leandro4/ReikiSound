@@ -3,7 +3,7 @@
     <string name="app_name">Reiki Sound</string>
 
     <string name="donate_question">È utile?</string>
-    <string name="donate_button">Sostieni il team</string>
+    <string name="donate_button">Fai una donazione</string>
 
     <string name="selected_audio">Audio selezionato</string>
     <string name="selected_audio_body">Siamo spiacenti ma l\'elemento selezionato non può essere riprodotto, provare un altro audio o modificare il formato.</string>

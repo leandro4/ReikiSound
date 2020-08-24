@@ -58,7 +58,7 @@ object EventTracker {
 
         val bundle = Bundle()
         bundle.putLong(DURATION, duration)
-        bundle.putInt(FREQUENCY, DataManager.getFrequency(context))
+        bundle.putInt(FREQUENCY, DataManager.getFrequency(context) / 60)
         bundle.putString(BELL, bell)
         bundle.putString(BKGND_MUSIC, music)
         firebaseAnalytics.logEvent(REIKI_SESSION, bundle)

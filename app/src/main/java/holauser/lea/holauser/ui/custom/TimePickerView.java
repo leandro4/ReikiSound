@@ -21,9 +21,8 @@ import holauser.lea.holauser.util.Animations;
 public class TimePickerView extends RelativeLayout {
 
     TextView tvCount;
-    private int maxValue = 60;
-    private int minValue = 1;
-    private int value = 3;
+    private int minValue = 15;
+    private int value = 180;
 
     public TimePickerView(Context context) {
         super(context);
@@ -59,7 +58,7 @@ public class TimePickerView extends RelativeLayout {
         int count = value;
         if (count == minValue)
             return;
-        count--;
+        count -= 15;
         value = count;
         updateTimeText();
     }
@@ -68,19 +67,9 @@ public class TimePickerView extends RelativeLayout {
         Animations.animateScale(v);
 
         int count = value;
-        if (count == maxValue)
-            return;
-        count++;
+        count += 15;
         value = count;
         updateTimeText();
-    }
-
-    public void setMaxValue(int maxValue) {
-        this.maxValue = maxValue;
-    }
-
-    public void setMinValue(int minValue) {
-        this.minValue = minValue;
     }
 
     public int getValue() {
@@ -88,12 +77,14 @@ public class TimePickerView extends RelativeLayout {
     }
 
     public void setValue(int time) {
-        if (time < minValue || time > maxValue) return;
+        if (time < minValue) return;
         value = time;
         updateTimeText();
     }
 
     private void updateTimeText() {
-        tvCount.setText(String.format(Locale.getDefault(), "%d' min", value));
+        int min = value / 60;
+        int seg = value % 60;
+        tvCount.setText(String.format(Locale.getDefault(), "%d' %d\"", min, seg));
     }
 }

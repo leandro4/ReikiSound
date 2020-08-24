@@ -3,7 +3,7 @@
     <string name="app_name">Reiki Sound</string>
 
     <string name="donate_question">Is it helpful?</string>
-    <string name="donate_button">Support the Team</string>
+    <string name="donate_button">Make a donation</string>
 
     <string name="selected_audio">Selected Audio</string>
     <string name="selected_audio_body">Sorry but your audio file could not be played. Please choose another one.</string>
